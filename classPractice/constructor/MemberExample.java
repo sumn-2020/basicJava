@@ -2,17 +2,20 @@ package classPractice.constructor;
 
 public class MemberExample {
 	public static void main(String[] args) {
-
-		// 객체를 생성하고 객체 안에 이순신이라는 글자를 넣으면 클래스 속에 들어있는 생성자 String n에 넘겨짐
+		
+		
 		Member member1 = new Member("이순신");
-		System.out.println(member1.name);
-
+		System.out.println(member1.name); //member 클래스 내부에 있는 member생성자에있는 name을 호출
+		
 		System.out.println();
-
-		// 또 다른 객체를 생성하고 객체 안에 홍길동, 이클립스라는 글자를 넣으면 클래스 속에 들어있는 생성자 String n, String i에 넘겨짐
-		Member member2 = new Member("홍길동", "이클립스");
-		System.out.println(member2.name);
-		System.out.println(member2.id);
-
+		
+		Member member2 = new Member("홍길동","별명"); //member클래스 내부에 있는 생성자 중 매개변수가 두 개인 생성자를 찾아서 매개변수에 넘겨줌 
+		System.out.println(member2.name); //member생성자에 있는 name 호출  
+		System.out.println(member2.id); //member생성자에 있는 id호출
+		
+		
+		
+		
+		
 	}
 }
