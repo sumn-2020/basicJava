@@ -1,16 +1,12 @@
-package Exercise20220827.Exercise04;
+package exercise.exercise07.savecheck;
 
 public class BankTest {
 	public static void main(String[] args) {
-		
-		//1) 고객이름, 저축/이자율, 저축하고 남은 잔액에 대한 고객 정보를 각각 BanK 배열에 넣는다. 
 		Bank bank = new Bank();
 
 		Customer customer1 = new Customer("Tony", "Stark");
 		SavingsAccount customer1SavingsAccount = new SavingsAccount(2000, 0.01);
 		customer1.addAccount(customer1SavingsAccount);
-		
-		
 		customer1.addAccount(new CheckingAccount(3000, customer1SavingsAccount));
 		bank.addCustomer(customer1);
 
@@ -24,12 +20,9 @@ public class BankTest {
 		customer3.addAccount(new CheckingAccount(1000, customer3SavingsAccount));
 		bank.addCustomer(customer3);
 
-		
 		System.out.println(customer3.getFirstName() + "의 SavingsAccount 잔고: " + customer3.getAccount(0) + "원");
 		System.out.println(customer3.getFirstName() + "의 CheckingAccount 잔고: " + customer3.getAccount(1) + "원");
 		System.out.println();
-		
-		
 		System.out.println("새로운 withdraw 메소드 실험(1,400원 인출)");
 		customer3.getAccount(1).withdraw(1400);
 		System.out.println(customer3.getFirstName() + "의 SavingsAccount 잔고: " + customer3.getAccount(0) + "원");
