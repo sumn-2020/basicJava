@@ -40,6 +40,7 @@ public class BankAccount {
 	
 	public String toString() { //잔액을 문자열로 반환
 		return Integer.toString(balance);
+		
 	}
 
 }

@@ -31,6 +31,7 @@ public class Customer {
 	
 	public BankAccount getAccount(int index) {
 		//accounts배열의 index에 해당하는 BankAccount 객체를 반환
+	
 		return accounts[index];
 	}
 	
@@ -45,6 +46,9 @@ public class Customer {
 	}
 	
 	public String toString() {// 고객계좌(account)의 잔액(balance)를 문자열로 반환
-		return "이름: " + firstName + " " + lastName + ", 계좌의 갯수 : " + accounts;
+		return "이름: " + firstName + " " + lastName + ", 계좌의 갯수 : " + numberOfAccounts;
+		
+		//accounts[numberOfAccounts] :  accounts 의 "numberOfAccount"번째 객체의 값
+		//numberOfAccounts : 그냥 계좌 갯수
 	}
 }

@@ -9,6 +9,8 @@ public class BankTest {
 		Customer customer1 = new Customer("Tony", "Stark");
 		SavingsAccount customer1SavingsAccount = new SavingsAccount(2000, 0.01);
 		customer1.addAccount(customer1SavingsAccount);
+		
+		
 		customer1.addAccount(new CheckingAccount(3000, customer1SavingsAccount));
 		bank.addCustomer(customer1);
 
@@ -27,7 +29,7 @@ public class BankTest {
 		System.out.println(customer3.getFirstName() + "의 CheckingAccount 잔고: " + customer3.getAccount(1) + "원");
 		System.out.println();
 		
-		//(2) 
+		
 		System.out.println("새로운 withdraw 메소드 실험(1,400원 인출)");
 		customer3.getAccount(1).withdraw(1400);
 		System.out.println(customer3.getFirstName() + "의 SavingsAccount 잔고: " + customer3.getAccount(0) + "원");
