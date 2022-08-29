@@ -1,4 +1,4 @@
-package exercise.exercise07.savecheck;
+package Exercise20220826.Exercise04;
 
 public class BankTest {
 	public static void main(String[] args) {
@@ -49,7 +49,8 @@ public class BankTest {
 			if (c != null) {
 				System.out.println(c);
 				for (int i = 0; i < c.getNumberOfAccounts(); i++) {
-					System.out.println("계좌 종류: " + c.getAccount(i).getClass().getSimpleName() + ", 잔고: " + c.getAccount(i) + "원");
+					System.out.println(
+							"계좌 종류: " + c.getAccount(i).getClass().getSimpleName() + ", 잔고: " + c.getAccount(i) + "원");
 				}
 				System.out.println();
 			}
