@@ -14,12 +14,12 @@ public class ShapeTest {
 		shapes[6] = new Circle(1.3);
 		
 		System.out.println("<도형들을 넓이 기준으로 정렬하기 전>");
-		for(Shape s : shapes) {
+		for(Shape s : shapes) { //shapes = new Circle(1.0), new Triangle(2.0), new Rectangle(2.0, 3.0) ...
 			System.out.println(s);
 		}
 		Arrays.sort(shapes);
 		
-		System.out.println();
+		System.out.println("================================");
 		
 		System.out.println("<도형들을 넓이 기준으로 정렬한 후>");
 		for(Shape s : shapes) {

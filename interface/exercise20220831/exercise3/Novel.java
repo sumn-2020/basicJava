@@ -7,7 +7,7 @@ public class Novel extends Book {
 
 	@Override
 	public int getLateFee(int lateDays) {
-		return 300;
+		return lateDays * 300;
 		// 하루연체될 때마다 300원
 	}
 }

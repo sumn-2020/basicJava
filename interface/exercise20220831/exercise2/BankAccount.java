@@ -39,7 +39,11 @@ public abstract class BankAccount {
 	}
 
 	
-	//BankAccount를 abstract로 바꾼 후 getAccountType 추상메소드 추가한 후 SavingAccount, CheckingAccount는 이걸 상속받아서 사용 
+	/**
+	 * 계좌의 종류를 반환하는 메소드 
+	 * @return 계좌의 종료(저축계좌, 당좌예금)
+	 */
+	//BankAccount를 abstract로 바꾼 후 getAccountType 추상메소드 추가한 후/ SavingAccount, CheckingAccount는 이걸 상속받아서 사용 
 	public abstract String getAccountType();
 
 }
