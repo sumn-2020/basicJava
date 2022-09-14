@@ -9,8 +9,21 @@ public class MemoVO {
 	private String writer;
 	private Date registerDate;
 	private Date modifyDate;
-	
+
 	public MemoVO() {
+	}
+
+	public MemoVO(String title, String content, String writer) {
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+	}
+
+	public MemoVO(int no, String title, String content, String writer) {
+		this.no = no;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
 	}
 
 	public MemoVO(int no, String title, String content, String writer, Date registerDate, Date modifyDate) {
@@ -70,14 +83,9 @@ public class MemoVO {
 		this.modifyDate = modifyDate;
 	}
 
-	
 	@Override
 	public String toString() {
-		return String.format("%d\t%s\t%s\t%s\t%s\t%s\n", no,title, content, writer, registerDate, modifyDate);
+		return String.format("%d\t%s\t%s\t%s\t%s\t%s", no, title, content, writer, registerDate, modifyDate);
 	}
-	
-	
-	
-	
-	
+
 }
