@@ -19,8 +19,8 @@ public class Home {
 		loop:
 		while(true) {
 			try {
-				HomeMenu menu = HomeMenu.findMenu(number);
-				System.out.println(menu.getMenuString());
+				HomeMenu menu = HomeMenu.findMenu(number); //메뉴 번호 출력 반복
+				System.out.print(menu.getMenuString()); // 메뉴명 출력 반복 
 				switch(menu) {
 					case HOME:
 					case PATIENT:
@@ -30,12 +30,16 @@ public class Home {
 						break;
 					case LOGIN:
 						number = view.login(signController);
+						break;
+					case LOGOUT:
+						number = signController.signout();
+						break;
 					case QUIT:
 						break loop;
 				}
 			} catch (MenuNotFoundException e) {
 				System.out.println(e.getMessage());
-				System.out.println(HomeMenu.HOME.getMenuString());
+				System.out.print(HomeMenu.HOME.getMenuString());
 			}
 			System.out.println();
 		}

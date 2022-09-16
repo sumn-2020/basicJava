@@ -13,7 +13,6 @@ public class PatientVO {
 	private String patPw;
 
 	public PatientVO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public PatientVO(String patId, String patPw) {
