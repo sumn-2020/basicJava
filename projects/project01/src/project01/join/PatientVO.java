@@ -20,20 +20,17 @@ public class PatientVO {
 		this.patPw = patPw;
 	}
 
-	public PatientVO(String patCode, String patName, String patAddr, String pat_Phone, String patReg, String patHiredate,
+	public PatientVO(String patCode, String patName, String patAddr, String patPhone, String patReg, String patHiredate,
 			String patId, String patPw) {
 		this.patCode = patCode;
 		this.patName = patName;
 		this.patAddr = patAddr;
-		this.patPhone = pat_Phone;
+		this.patPhone = patPhone;
 		this.patReg = patReg;
 		this.patHiredate = patHiredate;
 		this.patId = patId;
 		this.patPw = patPw;
 	}
-
-
-
 
 	public String getPatCode() {
 		return patCode;
@@ -59,12 +56,12 @@ public class PatientVO {
 		this.patAddr = patAddr;
 	}
 
-	public String getPat_Phone() {
+	public String getPatPhone() {
 		return patPhone;
 	}
 
-	public void setPat_Phone(String pat_Phone) {
-		this.patPhone = pat_Phone;
+	public void setPatPhone(String patPhone) {
+		this.patPhone = patPhone;
 	}
 
 	public String getPatReg() {

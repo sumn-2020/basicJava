@@ -1,15 +1,15 @@
 package project01;
 
 public class HospitalDAO {
-	
-	//싱글톤 
+
+	// 싱글톤
 	private static HospitalDAO instance;
-	private HospitalDAO() {}
+
+	private HospitalDAO() {
+	}
+
 	public static HospitalDAO getInstance() {
 		return instance;
 	}
-	
-	
-	
 
 }

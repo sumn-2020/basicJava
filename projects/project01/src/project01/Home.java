@@ -21,6 +21,7 @@ public class Home {
 			try {
 				HomeMenu menu = HomeMenu.findMenu(number); //메뉴 번호 출력 반복
 				System.out.print(menu.getMenuString()); // 메뉴명 출력 반복 
+
 				switch(menu) {
 					case HOME:
 					case PATIENT:
