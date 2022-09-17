@@ -1,10 +1,10 @@
 package project01.sign;
 
 import project01.HospitalApplication;
+import project01.common.AdminVO;
+import project01.common.DoctorVO;
 import project01.common.HomeMenu;
-import project01.join.AdminVO;
-import project01.join.DoctorVO;
-import project01.join.PatientVO;
+import project01.common.PatientVO;
 
 public class SignController {
 

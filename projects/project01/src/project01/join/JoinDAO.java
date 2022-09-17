@@ -2,7 +2,9 @@ package project01.join;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+
 import project01.HospitalApplication;
+import project01.common.PatientVO;
 
 
 public class JoinDAO {
@@ -19,16 +21,16 @@ public class JoinDAO {
 	
 	//*** 쿼리문 ***
 	//아이디 찾기 
-	public PatientVO findPatient(int patId) {
-		return template.queryForObject("SELECT DOC_CODE,\r\n"
-				+ "       DOC_NAME,\r\n"
-				+ "       DEPT_CODE,\r\n"
-				+ "       DOC_OFF,\r\n"
-				+ "       DOC_LOCATION,\r\n"
-				+ "       DOC_ID,\r\n"
-				+ "       DOC_PW\r\n"
-				+ "  FROM DOCTOR\r\n"
-				+ " WHERE DOC_ID = ? ", new BeanPropertyRowMapper<>(PatientVO.class), patId);
+	public PatientVO findPatient(String patId) {
+		return template.queryForObject("SELECT PAT_CODE,\r\n"
+				+ "       PAT_NAME,\r\n"
+				+ "       PAT_ADDR,\r\n"
+				+ "       PAT_PHONE,\r\n"
+				+ "       PAT_REG,\r\n"
+				+ "       PAT_ID,\r\n"
+				+ "       PAT_PW\r\n"
+				+ "  FROM PATIENT\r\n"
+				+ " WHERE PAT_ID = ? \r\n ", new BeanPropertyRowMapper<>(PatientVO.class), patId);
 	}
 	
 	//입력된 정보 환자테이블에 추가 
@@ -49,11 +51,29 @@ public class JoinDAO {
 				+ "     ?,     \r\n"
 				+ "     ?,     \r\n"
 				+ "     ?      \r\n"
-				+ ") ", vo.getPatName(), vo.getPatAddr(), vo.getPatId(), vo.getPatPhone(), vo.getPatPw());
+				+ ") ", vo.getPatName(), vo.getPatAddr(), vo.getPatPhone(), vo.getPatReg(), vo.getPatId(),  vo.getPatPw());
 	}
 	
+	//주소수정 
+	public int modifyAddress(PatientVO vo) {
+		return template.update("UPDATE PATIENT\r\n"
+				+ "   SET PAT_ADDR = ? \r\n"
+				+ " WHERE PAT_CODE = ? ", vo.getPatAddr(), vo.getPatCode());
+	}
+		
+	//폰번호수정
+	public int modifyPhone(PatientVO vo) {
+		return template.update("UPDATE PATIENT\r\n"
+				+ "   SET PAT_PHONE = ? \r\n"
+				+ " WHERE PAT_CODE = ? ", vo.getPatPhone(), vo.getPatCode());
+	}
 	
-	
+	//폰번호수정
+	public int modifyPassword(PatientVO vo) {
+		return template.update("UPDATE PATIENT\r\n"
+				+ "   SET PAT_PHONE = ? \r\n"
+				+ " WHERE PAT_CODE = ? ", vo.getPatPhone(), vo.getPatCode());
+	}
 	
 	
 	

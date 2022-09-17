@@ -2,17 +2,23 @@ package project01;
 
 import project01.common.HomeMenu;
 import project01.common.MenuNotFoundException;
+import project01.join.JoinController;
+import project01.join.JoinView;
 import project01.sign.SignController;
+import project01.sign.SignView;
 
 public class Home {
 	
-	private SignController signController = SignController.getInstance(); //로그인, 로그아웃 컨트롤러 불러오기 
+	//컨트롤러 속 싱글톤 가져오기 
+	private SignController signController = SignController.getInstance(); //로그인, 로그아웃 컨트롤러 불러오기
+	private JoinController joinController = JoinController.getInstance(); //회원가입 컨트롤
 
 	// view 파일 속 싱글톤 가져오기
-	private HospitalView view = HospitalView.getInstance();
+	private SignView viewSign = SignView.getInstance();
+	private JoinView viewJoin = JoinView.getInstance();
 
 	public void initialize() {
-		home(view.init()); //home 메소드 호출 
+		home(viewSign.init()); //home 메소드 호출 
 	}
 
 	private void home(int number)  {
@@ -24,13 +30,16 @@ public class Home {
 
 				switch(menu) {
 					case HOME:
-					case PATIENT:
-					case DOCTOR:
-					case ADMINISTOR:
-						number = view.getMenu(); //해당 메뉴 선택  
+					case PATIENT: //환자일경우
+					case DOCTOR: //의사일경우
+					case ADMINISTOR: //관리자일경우
+						number = viewSign.getMenu(); //해당 메뉴 선택  
+						break;
+					case JOIN:
+						number = viewJoin.join(joinController);
 						break;
 					case LOGIN:
-						number = view.login(signController);
+						number = viewSign.login(signController);
 						break;
 					case LOGOUT:
 						number = signController.signout();
