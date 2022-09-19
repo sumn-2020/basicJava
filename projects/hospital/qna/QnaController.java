@@ -4,6 +4,7 @@ import java.util.List;
 
 import hospital.HospitalApplication;
 import hospital.common.HomeMenu;
+import hospital.join.AdminVO;
 import hospital.join.PatientVO;
 import hospital.notice.NoticeVO;
 
@@ -55,6 +56,8 @@ public class QnaController {
 	public List<QnaVO> selectQnaList2(String id){
 		return service.findQnaId(id);
 	}
+	
+
 	
 
 	

@@ -2,8 +2,10 @@ package hospital.qna;
 
 import java.util.List;
 
+import hospital.join.AdminVO;
 import hospital.join.PatientVO;
 import hospital.notice.NoticeVO;
+import hospital.reply.ReplyVO;
 
 public class QnaService {
 	
@@ -36,6 +38,8 @@ public class QnaService {
 	public int deleteQna(QnaVO vo) {
 		return dao.deleteQna(vo);
 	}
+
+	
 	
 	
 	

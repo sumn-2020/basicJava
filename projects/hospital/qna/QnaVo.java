@@ -18,6 +18,7 @@ public class QnaVO {
 		this.qnaSub = qnaSub;
 		this.qnaNote = qnaNote;
 	}
+	
 
 	public QnaVO(String qnaCode, String qnaSub, String qnaNote, String qnaDate, String patCode) {
 		this.qnaCode = qnaCode;
@@ -66,6 +67,8 @@ public class QnaVO {
 	public void setPatCode(String patCode) {
 		this.patCode = patCode;
 	}
+	
+
 
 	public void invalidate() {
 		this.qnaCode = null;
@@ -74,4 +77,23 @@ public class QnaVO {
 		this.qnaDate = null;
 		this.patCode = null;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("QnaVO [qnaCode=");
+		builder.append(qnaCode);
+		builder.append(", qnaSub=");
+		builder.append(qnaSub);
+		builder.append(", qnaNote=");
+		builder.append(qnaNote);
+		builder.append(", qnaDate=");
+		builder.append(qnaDate);
+		builder.append(", patCode=");
+		builder.append(patCode);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
 }

@@ -37,9 +37,12 @@ public enum HomeMenu {
     QNA_CHECK(431, "431. 문의조회\t432.문의작성\t433.문의삭제\t434.문의수정\t0.종료"),
     INSERT_QNA(432, "문의글 작성"),
     UPDATE_QNA(434, "문의글 수정"),
-    QNA_CHECK_ADMIN(63, "631.문의조회\t632.답변달기\t633.문의삭제"),
-    DELETE_QNA_CHECK(433, "문의글 삭제")
     
+   
+    QNA_ADMIN(63, "631.문의조회\t632.답변달기\t633.문의삭제"),
+    QNA_CHECK_ADMIN(631, ""),
+    DELETE_QNA_CHECK(633, "삭제할 게시물 번호를 입력하세요."),
+    QNA_REPLY(632, "답변할 게시물 번호를 입력하세요.")
     
     ;
 

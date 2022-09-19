@@ -6,7 +6,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import hospital.HospitalApplication;
+import hospital.join.AdminVO;
 import hospital.notice.NoticeVO;
+import hospital.reply.ReplyVO;
 
 public class QnaDAO {
 
@@ -55,14 +57,12 @@ public class QnaDAO {
 				+ ") ", vo.getQnaSub(), vo.getQnaNote(), vo.getPatCode());
 	}
 	
-	//qna 삭제 
+	//qna 삭제 관리자
 	public int deleteQna(QnaVO vo) {
-		return template.update("DELETE FROM QNA\r\n"
-				+ " WHERE PAT_CODE = ? \r\n"
-				+ "   AND QNA_CODE = ? ");
+		return template.update(" DELETE FROM QNA \r\n"
+				+ "	WHERE  QNA_CODE = ? ", vo.getQnaCode());
 	}
-	
 
-	
+
 	
 }

@@ -10,6 +10,7 @@ import hospital.join.*;
 import hospital.notice.NoticeController;
 import hospital.patSign.PatSignController;
 import hospital.qna.QnaController;
+import hospital.reply.ReplyController;
 
 public class Home {
 	private HospitalView view = HospitalView.getInstance();
@@ -20,6 +21,7 @@ public class Home {
 	private NoticeController noticeController = NoticeController.getInstance();
 	private AppointmentController appointController = AppointmentController.getInstance();
 	private QnaController qnaController = QnaController.getInstance();
+	private ReplyController replyController = ReplyController.getInstance();
 	
 	
 	
@@ -42,6 +44,7 @@ public class Home {
 						case ADMIN:
 						case NOTICE:
 						case QNA:
+						case QNA_ADMIN:
 						case APPOINTMENT:
 							number = view.getMenu();
 							break;
@@ -104,16 +107,22 @@ public class Home {
 //		               case ALLQNA: //
 //		                      number = view.getQnaList(qnaController);
 //		                      break;    
-						case QNA_CHECK_ADMIN://문의조회 - 관리자
 		                case QNA_CHECK: //문의조회 - 환자
 		                      number = view.getQnaList(qnaController);
 		                      break;
 		                case INSERT_QNA : //문의등록 - 환자
 		                      number = view.insertQna(qnaController);
 		                      break;
+		                
 		                case  DELETE_QNA_CHECK : //문의삭제 - 관리자
-		                      number = view.deleteQna(qnaController);
+		                	  number = view.deleteQna(qnaController);
 		                      break;
+		                case QNA_CHECK_ADMIN:
+		                	number = view.getQnaListAdmin(qnaController);
+		                	break;
+		                case QNA_REPLY:
+		                	number = view.replyQna(replyController);
+		                	break;
 						case QUIT:
 							break loop;
 					}
