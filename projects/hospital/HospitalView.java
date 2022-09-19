@@ -311,15 +311,10 @@ public class HospitalView {
 		});
 		return HomeMenu.QNA_ADMIN.getMenu();
 	}
-	
-	
-
-	
-	
-	// qna 삭제(관리자)
+	// qna 삭제
 	public int deleteQnaAdmin(QnaController controller) {
 		int number;
-		number = HomeMenu.DELETE_QNA_CHECK.getMenu();
+		number = HomeMenu.DELETEQNA_ADMIN.getMenu();
 		String code = scanner.next();
 
 		number = controller.deleteQna(new QnaVO(code));
