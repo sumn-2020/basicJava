@@ -246,15 +246,17 @@ public class HospitalView {
 		});
 		return HomeMenu.DOCTOR.getMenu();
 	}
-
-	// qna 전체목록(환자)
+	
+	
+	//*** 환자 *** 
+	// qna 전체목록
 	public int getQnaList(QnaController controller) {
 		controller.selectQnaList().forEach(QnaVO -> {
 			System.out.printf("%s\t%s\t%s\t\n", QnaVO.getQnaCode(), QnaVO.getQnaSub(), QnaVO.getQnaDate());
 		});
 		return HomeMenu.QNA.getMenu();
 	}
-	// qna 확인할 문의 (환자)
+	// qna 확인할 문의 
 	public int searchQna(QnaController controller) {
 		String searchWord = scanner.next();
 		System.out.println();
@@ -264,9 +266,7 @@ public class HospitalView {
 		});
 		return HomeMenu.QNA.getMenu();
 	}
-	
-
-	// qna 등록 (환자)
+	// qna 등록
 	public int insertQna(QnaController controller) {
 		int number;
 		System.out.print("제목: ");
@@ -279,17 +279,45 @@ public class HospitalView {
 		number = HomeMenu.QNA.getMenu();
 		return number;
 	}
+	// qna 삭제
+	public int deleteQna(QnaController controller) {
+		int number;
+		number = HomeMenu.DELETE_QNA.getMenu();
+		String code = scanner.next();
 
-	// qna 전체목록(관리자)
+		number = controller.deleteQna(new QnaVO(code));
+		System.out.println("삭제되었습니다.");
+		number = HomeMenu.QNA.getMenu();
+		return number;
+	}
+
+	
+	
+	//*** 관리자 *** 
+	// qna 전체목록
 	public int getQnaListAdmin(QnaController controller) {
 		controller.selectQnaList().forEach(QnaVO -> {
 			System.out.printf("%s\t%s\t%s\t\n", QnaVO.getQnaCode(), QnaVO.getQnaSub(), QnaVO.getQnaDate());
 		});
 		return HomeMenu.QNA_ADMIN.getMenu();
 	}
+	// qna 확인할 문의 
+	public int searchQnaAdmin(QnaController controller) {
+		String searchWord = scanner.next();
+		System.out.println();
+		controller.selectQnaList2(searchWord).forEach(QnaVO -> {
+			System.out.printf("%s\t%s\t%s\t%s\n", "제목: " + QnaVO.getQnaSub(), "\n" + "등록일: "+ QnaVO.getQnaDate(), "\n관리자: " + QnaVO.getQnaCode(), 
+					"\n내용 : " + QnaVO.getQnaNote() + "\n");
+		});
+		return HomeMenu.QNA_ADMIN.getMenu();
+	}
+	
+	
 
+	
+	
 	// qna 삭제(관리자)
-	public int deleteQna(QnaController controller) {
+	public int deleteQnaAdmin(QnaController controller) {
 		int number;
 		number = HomeMenu.DELETE_QNA_CHECK.getMenu();
 		String code = scanner.next();

@@ -44,7 +44,6 @@ public class Home {
 						case ADMIN:
 						case NOTICE:
 						case QNA:
-						case QNA_ADMIN:
 						case APPOINTMENT:
 							number = view.getMenu();
 							break;
@@ -105,22 +104,31 @@ public class Home {
 							number = view.getAdmNoticeList(noticeController);
 							break;
   
-						case QNA_CHECK:
+
+						//qna - 환자
+						case ALLQNA: 
 							number = view.getQnaList(qnaController);
 							break;
-						case SELQNA	:
+						case SELQNA	://조회
 							number = view.getQnaList(qnaController);
 							number = view.searchQna(qnaController);
 							break;
-		                case INSERT_QNA : //문의등록 - 환자
+		                case INSERT_QNA : //문의등록
 		                      number = view.insertQna(qnaController);
 		                      break;
-		                case  DELETE_QNA_CHECK : //문의삭제 - 관리자
+		                case DELETE_QNA_CHECK : //문의삭제 - 관리자
 		                	  number = view.deleteQna(qnaController);
-		                      break;
-		                case QNA_CHECK_ADMIN:
+		                	  break; 
+		                case DELETE_QNA:
+		                	 number = view.deleteQna(qnaController);
+		                	 break;
+		                case QNA_ADMIN:
 		                	number = view.getQnaListAdmin(qnaController);
 		                	break;
+						case SELQNA_ADMIN	:
+							number = view.getQnaListAdmin(qnaController);
+							number = view.searchQnaAdmin(qnaController);
+							break;	 
 		                case QNA_REPLY:
 		                	number = view.replyQna(replyController);
 		                	break;

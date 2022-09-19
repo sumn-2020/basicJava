@@ -43,7 +43,9 @@ public class QnaDAO {
 					+ "   AND A.QNA_CODE = ? ", new BeanPropertyRowMapper<>(QnaVO.class), qnaId);
 		}
 
-		// qna 등록 - 환자
+		
+		//*** 환자 *** 
+		// qna 등록 
 		public int insertQna(QnaVO vo) {
 			return template.update("INSERT INTO QNA (\r\n"
 					+ "    QNA_CODE,\r\n"
@@ -61,8 +63,7 @@ public class QnaDAO {
 		//qna 삭제 
 		public int deleteQna(QnaVO vo) {
 			return template.update("DELETE FROM QNA\r\n"
-					+ " WHERE PAT_CODE = ? \r\n"
-					+ "   AND QNA_CODE = ? ");
+					+ "   WHERE QNA_CODE = ? ", vo.getQnaCode());
 		}
 		
 		// qna 수정

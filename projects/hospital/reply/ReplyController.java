@@ -33,7 +33,7 @@ public class ReplyController {
 			System.out.println("알 수 없는 오류가 발생했습니다.");
 			return HomeMenu.HOME.getMenu();
 		}
-		return HomeMenu.QNA_CHECK.getMenu();
+		return HomeMenu.QNA.getMenu();
 	}
 
 	//qna 답변

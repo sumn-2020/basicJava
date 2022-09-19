@@ -40,7 +40,7 @@ public class QnaController {
 			System.out.println("알 수 없는 오류가 발생했습니다.");
 			return HomeMenu.HOME.getMenu();
 		}
-		return HomeMenu.QNA_CHECK.getMenu();
+		return HomeMenu.QNA.getMenu();
 	}
 	
 
@@ -55,7 +55,8 @@ public class QnaController {
 	
 	
 	
-	// qna 삭제-관리자
+	
+	// qna 삭제
 	public int deleteQna(QnaVO vo) {
 		return service.deleteQna(vo);
 	}
