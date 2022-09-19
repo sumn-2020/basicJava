@@ -13,6 +13,13 @@ public class AdminVO {
 		this.adminId = adminId;
 		this.adminPw = adminPw;
 	}
+	
+	public AdminVO(String adminCode, String adminName, String adminId, String adminPw) {
+		this.adminCode = adminCode;
+		this.adminName = adminName;
+		this.adminId = adminId;
+		this.adminPw = adminPw;
+	}
 
 	public String getAdminCode() {
 		return adminCode;

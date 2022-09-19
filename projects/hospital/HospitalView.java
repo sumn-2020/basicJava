@@ -1,8 +1,10 @@
 package hospital;
 
+import java.sql.Date;
 import java.util.Scanner;
 
 import hospital.adminSign.AdminSignController;
+import hospital.appointment.AppointmentController;
 import hospital.common.HomeMenu;
 import hospital.common.ScannerUtil;
 import hospital.docSign.DocSignController;
@@ -11,7 +13,10 @@ import hospital.join.DoctorVO;
 import hospital.join.JoinController;
 import hospital.join.PatientVO;
 import hospital.notice.NoticeController;
+import hospital.notice.NoticeVO;
 import hospital.patSign.PatSignController;
+import hospital.qna.QnaController;
+import hospital.qna.QnaVO;
 
 public class HospitalView {
     private static HospitalView instance = new HospitalView();
@@ -21,6 +26,7 @@ public class HospitalView {
     }
     
     private Scanner scanner = ScannerUtil.scanner();
+    private AdminVO adminSeission = new AdminVO();
     
     public int init() {
     	System.out.println("####다사랑 병원 예약 시스템입니다####");
@@ -103,9 +109,10 @@ public class HospitalView {
     	String pw = scanner.next();
     	AdminVO vo = controller.signIn(new AdminVO(id, pw));
     	if(vo!=null) {
+    		adminSeission.setAdminCode(vo.getAdminCode());
     		System.out.println(vo.getAdminName() + "님 로그인 되었습니다.");
     		number = HomeMenu.ADMIN.getMenu();
-    	}else {
+    	} else {
     		System.out.println("로그인 정보가 일치하지 않습니다.");
     		number = HomeMenu.HOME.getMenu();
     	}
@@ -120,23 +127,149 @@ public class HospitalView {
     	}
     	return HomeMenu.MYPAGE.getMenu();
     }
-    
+    //전체목록
     public int getNoticeList(NoticeController controller) {
     	controller.selectNoticeList().forEach(NoticeVO ->{
     		System.out.printf("%s\t%s\t%s\t\n",NoticeVO.getNoticeCode(), NoticeVO.getNoticeSub(), NoticeVO.getNoticeDate());
     	});
-    	return HomeMenu.NOTICE.getMenu();
+    	return HomeMenu.NOTICE.getMenu(); 
     }
-    
+    //확인할 공지
     public int searchNotice(NoticeController controller) {
     	String searchWord = scanner.next();
     	controller.selectNoticeList2(searchWord).forEach(NoticeVO->{
-    		System.out.printf("%s\t%s\t%s\t%s\n",NoticeVO.getNoticeSub(),NoticeVO.getNoticeNote(),NoticeVO.getNoticeDate(),NoticeVO.getAdminCode());
+    		System.out.printf("%s\t%s\t%s\t%s\n","제목: "+NoticeVO.getNoticeSub()+"\n"+"등록일: ",NoticeVO.getNoticeDate(),"관리자: "+NoticeVO.getAdminName()+"\n내용 : \n",NoticeVO.getNoticeNote()+"\n");
     	});
 //    	System.out.printf("%s\t%s\t%s\t%s\n",NoticeVO.getNoticeSub(),NoticeVO.getNoticeNote(),NoticeVO.getNoticeDate(),NoticeVO.getAdminCode());
     	return HomeMenu.NOTICE.getMenu();
     }
     
-
     
+    // 공지사항 등록
+    public int insertNotice(NoticeController controller) {
+    	int number;
+    	System.out.print("제목: ");
+    	String sub = scanner.next(); 
+    	System.out.println();
+    	System.out.println("내용: "); 
+    	String note = scanner.next();
+    	number = controller.insertNotice(new NoticeVO(sub, note, adminSeission.getAdminCode())); 
+    	System.out.println("게시물" + sub + "이(가) 등록되었습니다.");
+    	number = HomeMenu.NOTICE_CHECK.getMenu();
+    	System.out.println();
+    	return number;
+    }
+  //공지 수정
+  	public int updateNotice(NoticeController controller) {
+  		int number;
+  		number=HomeMenu.UPDATE_NOTICE.getMenu();
+  		String code = scanner.next();
+  		System.out.println("제목 : ");
+  		String sub= scanner.next();
+  		System.out.println("내용 : ");
+  		String note= scanner.next();
+  		number = controller.updateNotice(new NoticeVO(sub, note, adminSeission.getAdminCode(),code)); 
+  		System.out.println("수정되었습니다.");
+  		number = HomeMenu.NOTICE_CHECK.getMenu();
+  		return number;
+  	}
+    //공지 삭제
+	public int deleteNotice(NoticeController controller) {
+		int number;
+		number= HomeMenu.DELETE_NOTICE.getMenu();
+		String code = scanner.next();
+		number = controller.deleteNotice(new NoticeVO(code));
+		System.out.println("삭제되었습니다.");
+		number = HomeMenu.NOTICE_CHECK.getMenu();
+		return number;
+	}
+	
+	//관리자 공지사항 목록 
+    public int getAdmNoticeList(NoticeController controller) {
+    	controller.selectNoticeList().forEach(NoticeVO ->{
+    		System.out.printf("%s\t%s\t%s\t\n",NoticeVO.getNoticeCode(), NoticeVO.getNoticeSub(), NoticeVO.getNoticeDate());
+    	});
+    	return HomeMenu.NOTICE_CHECK.getMenu(); 
+    }
+	
+	  public int searchAppointment(AppointmentController controller) {
+	    	String searchWord = scanner.next();
+	    	controller.selectAppointment(searchWord).forEach(AppointmentVO->{
+	    		System.out.printf("%s\t%s\t%s\t%s\t%s\n",AppointmentVO.getResCode(),AppointmentVO.getResDate(),AppointmentVO.getPatCode(),AppointmentVO.getDocCode(),AppointmentVO.getResMemo());
+	    	});
+	    	return HomeMenu.APPOINTMENT.getMenu();
+	    }
+	    
+	    public int insertAppointment(AppointmentController controller) {
+	    	System.out.println();
+	    	
+	    	return HomeMenu.APPOINTMENT.getMenu();
+	    }
+	    
+	    public int deleteAppointment(AppointmentController controller) {
+	    	String code = scanner.next();
+	    	controller.deleteAppointment(code);
+	    	System.out.println("삭제되었습니다.");
+	    	return HomeMenu.APPOINTMENT.getMenu();
+	    }
+	    
+	    public int updateAppointment(AppointmentController controller) {
+	    	System.out.println("자신의 환자코드를 입력해주세요: ");
+	    	String patCode = scanner.next();
+	    	System.out.println("바꿀 날짜를 입력해주세요(yyyy-mm-dd형식): ");
+	    	String resDate = scanner.next();
+	    	System.out.println("변경하고 싶은 의사의 코드를 입력해주세요: ");
+	    	String docCode = scanner.next();
+
+	    	controller.updateAppointment(Date.valueOf(resDate), docCode, patCode);
+	    	return HomeMenu.APPOINTMENT.getMenu();
+	    }
+	    
+	    public int searchDocAppointment(AppointmentController controller) {
+	    	String searchWord = scanner.next();
+	    	controller.selectAppointment(searchWord).forEach(AppointmentVO->{
+	    		System.out.printf("%s\t%s\t%s\t%s\t%s",AppointmentVO.getResCode(),AppointmentVO.getResDate(),AppointmentVO.getPatCode(),AppointmentVO.getDocCode(),AppointmentVO.getResMemo());
+	    	});
+	    	return HomeMenu.DOCTOR.getMenu();
+	    }
+
+	    
+	    
+
+	      //qna 전체목록(관리자)
+	      public int getQnaList(QnaController controller) {
+	         controller.selectQnaList().forEach(QnaVO ->{
+	            System.out.printf("%s\t%s\t%s\t\n",QnaVO.getQnaCode(), QnaVO.getQnaSub(), QnaVO.getQnaDate());
+	         });
+	         return HomeMenu.QNA.getMenu();
+	      }
+	       
+	      //qna 등록 (환자)
+	      public int insertQna(QnaController controller) {
+	         int number;
+	          System.out.print("제목: ");
+	          String sub = scanner.next(); 
+	          System.out.println("내용: "); 
+	          String note = scanner.next();
+	          
+	          number = controller.insertQna(new QnaVO(sub, note));
+	          System.out.println("문의 글이 등록되었습니다");
+	          number = HomeMenu.QNA.getMenu();
+	         return number;
+	      }
+	      
+	      //qna 삭제
+	  	  public int deleteQna(QnaController controller) {
+			int number;
+			System.out.println("");
+			number= HomeMenu.DELETE_QNA_CHECK.getMenu();
+			String code = scanner.next();
+			
+			number = controller.deleteQna(new QnaVO(code));
+			System.out.println("삭제되었습니다.");
+			//number = HomeMenu.NOTICE_CHECK.getMenu();
+			return number;
+		 }
+	         
+	    
 }

@@ -1,12 +1,15 @@
 package hospital;
 
 import hospital.adminSign.AdminSignController;
+import hospital.appointment.AppointmentController;
+import hospital.appointment.AppointmentVO;
 import hospital.common.HomeMenu;
 import hospital.common.MenuNotFoundException;
 import hospital.docSign.DocSignController;
 import hospital.join.*;
 import hospital.notice.NoticeController;
 import hospital.patSign.PatSignController;
+import hospital.qna.QnaController;
 
 public class Home {
 	private HospitalView view = HospitalView.getInstance();
@@ -15,6 +18,11 @@ public class Home {
 	private DocSignController docsignController = DocSignController.getInstance();
 	private AdminSignController adminSignController = AdminSignController.getInstance();
 	private NoticeController noticeController = NoticeController.getInstance();
+	private AppointmentController appointController = AppointmentController.getInstance();
+	private QnaController qnaController = QnaController.getInstance();
+	
+	
+	
 	
 	public void initalize() {
 		home(view.init());
@@ -33,6 +41,8 @@ public class Home {
 						case DOCTOR:
 						case ADMIN:
 						case NOTICE:
+						case QNA:
+						case APPOINTMENT:
 							number = view.getMenu();
 							break;
 						case JOIN:
@@ -54,9 +64,56 @@ public class Home {
 						case ALLNOTICE:
 							number = view.getNoticeList(noticeController);
 							break;
+						case ADMIN_NOTICE:	
+							number = view.getAdmNoticeList(noticeController);
+							break;
 						case SELNOTICE:
+							number = view.getNoticeList(noticeController);
 							number = view.searchNotice(noticeController);
 							break;
+							
+						case SELAPPOINTMENT:
+							number = view.searchAppointment(appointController);
+							break;
+						case UPDATEAPPOINTMENT:
+							number = view.updateAppointment(appointController);
+							break;
+						case DELAPPOINTMENT:
+							number = view.deleteAppointment(appointController);
+							break;
+						case SELDOCAPPOINTMENT:
+							number = view.searchDocAppointment(appointController);
+							break;
+						case NOTICE_CHECK:
+							number = view.getMenu();
+							break;
+						case INSERT_NOTICE: //등록
+							number = view.insertNotice(noticeController);
+							number = view.getAdmNoticeList(noticeController);
+							break;
+						case UPDATE_NOTICE: //수정
+							number = view.getNoticeList(noticeController);
+							number = view.updateNotice(noticeController);
+							number = view.getAdmNoticeList(noticeController);
+							break;
+						case DELETE_NOTICE: //삭제
+							number = view.getNoticeList(noticeController);
+							number = view.deleteNotice(noticeController);
+							number = view.getAdmNoticeList(noticeController);
+							break;
+//		               case ALLQNA: //
+//		                      number = view.getQnaList(qnaController);
+//		                      break;    
+						case QNA_CHECK_ADMIN://문의조회 - 관리자
+		                case QNA_CHECK: //문의조회 - 환자
+		                      number = view.getQnaList(qnaController);
+		                      break;
+		                case INSERT_QNA : //문의등록 - 환자
+		                      number = view.insertQna(qnaController);
+		                      break;
+		                case  DELETE_QNA_CHECK : //문의삭제 - 관리자
+		                      number = view.deleteQna(qnaController);
+		                      break;
 						case QUIT:
 							break loop;
 					}

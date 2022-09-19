@@ -12,7 +12,7 @@ public class PatSignService {
 	
 	private PatSignDAO dao = PatSignDAO.getInstance();
 	
-	public PatientVO findUser(PatientVO vo) {
-		return dao.findUser(vo);
+	public PatientVO findPatient(PatientVO vo) {
+		return dao.findPatient(vo);
 	}
 }

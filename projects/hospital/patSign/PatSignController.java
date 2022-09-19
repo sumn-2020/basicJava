@@ -17,10 +17,11 @@ public class PatSignController {
 	private PatientVO session = HospitalApplication.getSession();
 	
 	public PatientVO signIn(PatientVO vo) {
-		PatientVO patient = service.findUser(vo);
+		PatientVO patient = service.findPatient(vo);
 		if(patient == null) {
 			return null;
 		}
+		session.setpatId(patient.getpatId());
 		session.setpatCode(patient.getpatCode());
 		session.setpatName(patient.getpatName());
 		return patient;

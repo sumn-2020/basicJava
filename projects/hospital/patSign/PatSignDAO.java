@@ -17,7 +17,7 @@ public class PatSignDAO {
 	
 	private JdbcTemplate template = HospitalApplication.getTemplate();
 	
-	public PatientVO findUser(PatientVO vo) {
+	public PatientVO findPatient(PatientVO vo) {
 		try {
 			return template.queryForObject("\r\n"
 					+ "SELECT PAT_CODE,\r\n"
