@@ -11,6 +11,15 @@ public class ReplyVO {
 	public ReplyVO() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public ReplyVO(String replyNote) {
+		this.replyNote = replyNote;
+	}
+
+	public ReplyVO(String qnaCode, String replyNote) {
+		this.qnaCode = qnaCode;
+		this.replyNote = replyNote;
+	}
 
 	public ReplyVO(String qnaCode, String replyNote, String adminCode) {
 		this.qnaCode = qnaCode;

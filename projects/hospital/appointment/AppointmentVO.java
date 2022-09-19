@@ -10,18 +10,35 @@ public class AppointmentVO {
 	private String patCode;
 	private String docCode;
 	private String resMemo;
-	
+	private String patName;
+	private String deptName;
+	private String docName;
 	
 	public AppointmentVO() {
 	}
 
-	public AppointmentVO(String resCode, Date resDate, String patCode, String docCode, String resMemo) {
+	
+	public AppointmentVO(String resCode, Date resDate, String patName, String deptName, String docName) {
+		this.resCode = resCode;
+		this.resDate = resDate;
+		this.patName = patName;
+		this.deptName = deptName;
+		this.docName = docName;
+	}
+
+	
+	public AppointmentVO(String resCode, Date resDate, String patCode, String docCode, String resMemo, String patName,
+			String deptName, String docName) {
 		this.resCode = resCode;
 		this.resDate = resDate;
 		this.patCode = patCode;
 		this.docCode = docCode;
 		this.resMemo = resMemo;
+		this.patName = patName;
+		this.deptName = deptName;
+		this.docName = docName;
 	}
+
 
 	public String getResCode() {
 		return resCode;
@@ -61,6 +78,36 @@ public class AppointmentVO {
 
 	public void setResMemo(String resMemo) {
 		this.resMemo = resMemo;
+	}
+
+
+	public String getPatName() {
+		return patName;
+	}
+
+
+	public void setPatName(String patName) {
+		this.patName = patName;
+	}
+
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+
+	public String getDocName() {
+		return docName;
+	}
+
+
+	public void setDocName(String docName) {
+		this.docName = docName;
 	}
 	
 	

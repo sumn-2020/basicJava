@@ -292,9 +292,7 @@ public class HospitalView {
 	// qna 답변(관리자)
 	public int replyQna(ReplyController controller) {
 		int number;
-		number = HomeMenu.QNA_REPLY.getMenu();
-		
-		System.out.println("왔다");
+		number = HomeMenu.QNA_REPLY.getMenu(); //
 		
 		String code = scanner.next();
 		
@@ -306,26 +304,20 @@ public class HospitalView {
 		replyVO.setAdminCode(HospitalApplication.getSession3().getAdminCode());
 		
 		scanner.nextLine();
-		//QNA_CODE, REPLY_NOTE, REPLY_DATE, ADMIN_CODE
-		//REPLY_NOTE
 		System.out.println("내용:");
 		String replyNote = scanner.nextLine();
-		replyVO.setReplyNote(replyNote);
 		
-		System.out.println("replyVO : " + replyVO.toString());
-		
-		number = controller.insertReply(replyVO);
-		
-		System.out.println("insert결과 : " + number);
+		//System.out.println("replyVO : " + replyVO.toString());
+		//number = controller.insertReply(replyVO);
+		//System.out.println("insert결과 : " + number);
 
-//		System.out.println("제목 : ");
-//		String sub = scanner.next();
-//		System.out.println("내용 : ");
-//		String note = scanner.next();
-//		controller.insertReply(new QnaVO(sub, note));
-//		System.out.println("답변이 등록되었습니다");
-//		
-//		
+		//replyVO.setReplyNote(replyNote);
+		//String reply = replyVO.getReplyNote();
+		//number = controller.insertReply(replyVO);
+		 number = controller.insertReply(new ReplyVO(code, replyNote));
+		//number = controller.insertReply(new QnaVO(sub, note));
+		
+		System.out.println("등록되었습니다");
 		number = HomeMenu.QNA_ADMIN.getMenu();
 		return number;
 	}

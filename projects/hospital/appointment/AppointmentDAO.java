@@ -1,6 +1,7 @@
 package hospital.appointment;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -19,16 +20,20 @@ public class AppointmentDAO {
 	
 	// 환자예약조회
 	public List<AppointmentVO> selectAppointment(String patCode) {
-		return template.query("SELECT A.RES_CODE,\r\n"
-				+ "		   A.RES_DATE,\r\n"
-				+ "       B.PAT_NAME,\r\n"
-				+ "       D.DEPT_NAME,\r\n"
-				+ "       C.DOC_NAME\r\n"
-				+ "  FROM RESERVATION A, PATIENT B, DOCTOR C, DEPARTMENT D\r\n"
-				+ " WHERE A.PAT_CODE = B.PAT_CODE\r\n"
-				+ "   AND A.DOC_CODE = C.DOC_CODE\r\n"
-				+ "   AND C.DEPT_CODE = D.DEPT_CODE\r\n"
-				+ "   AND A.PAT_CODE = ?\r\n", new BeanPropertyRowMapper(AppointmentVO.class), patCode);
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append("SELECT A.RES_CODE,\r\n");
+		builder.append("	   A.RES_DATE,\r\n");
+		builder.append("       B.PAT_NAME,\r\n");
+		builder.append("       D.DEPT_NAME,\r\n");
+		builder.append("       C.DOC_NAME\r\n");
+		builder.append("  FROM RESERVATION A, PATIENT B, DOCTOR C, DEPARTMENT D\r\n");
+		builder.append(" WHERE A.PAT_CODE = B.PAT_CODE\r\n");
+		builder.append("   AND A.DOC_CODE = C.DOC_CODE\r\n");
+		builder.append("   AND C.DEPT_CODE = D.DEPT_CODE\r\n");
+		builder.append("   AND A.PAT_CODE = ?\r\n");
+		
+		return template.query(builder.toString(), new BeanPropertyRowMapper(AppointmentVO.class), patCode);
 	}
 	
 	// 예약등록
@@ -40,12 +45,12 @@ public class AppointmentDAO {
 				+ "    DOC_CODE,\r\n"
 				+ "    RES_MEMO\r\n"
 				+ ") VALUES (\r\n"
-				+ "    (SELECT **'R'||TO_CHAR(SUBSTR(MAX(RES_CODE),2,3)+1) FROM RESERVATION)**,\r\n"
+				+ "    (SELECT 'R'||TO_CHAR(SUBSTR(MAX(RES_CODE),2,3)+1) FROM RESERVATION),\r\n"
 				+ "    ?,\r\n"
 				+ "    ?,\r\n"
 				+ "    ?,\r\n"
 				+ "    ?\r\n"
-				+ ")", null, vo.getPatCode(), vo.getDocCode(), vo.getResMemo());
+				+ ")", LocalDate.now(), vo.getPatCode(), vo.getDocCode(), vo.getResMemo());
 	}
 	
 	//예약취소

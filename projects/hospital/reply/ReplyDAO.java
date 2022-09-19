@@ -49,7 +49,7 @@ public class ReplyDAO {
 	//qna 답변 - 관리자
 	public int insertReply(ReplyVO vo) {
 		//ReplyVO [qnaCode=Q105, replyNote=내용, replyDate=null, adminCode=A001]
-		System.out.println("insertReply->vo : " + vo.toString());
+		//System.out.println("insertReply->vo : " + vo.toString());
 		
 		return template.update("INSERT INTO REPLY (\r\n"
 				+ "    QNA_CODE,\r\n"
