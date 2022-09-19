@@ -35,11 +35,12 @@ public class QnaDAO {
 		public List<QnaVO> findQnaId(String qnaId) {
 			return template.query("SELECT A.QNA_CODE,\r\n"
 					+ "       A.QNA_SUB,\r\n"
+					+ "       A.QNA_NOTE,\r\n"
 					+ "       B.PAT_NAME,\r\n"
 					+ "       A.QNA_DATE\r\n"
 					+ "  FROM QNA A, PATIENT B   \r\n"
 					+ " WHERE A.PAT_CODE = B.PAT_CODE\r\n"
-					+ "   AND A.PAT_CODE = ? ", new BeanPropertyRowMapper<>(QnaVO.class), qnaId);
+					+ "   AND A.QNA_CODE = ? ", new BeanPropertyRowMapper<>(QnaVO.class), qnaId);
 		}
 
 		// qna 등록 - 환자
@@ -64,7 +65,20 @@ public class QnaDAO {
 					+ "   AND QNA_CODE = ? ");
 		}
 		
-
+		// qna 수정
+		public int updateQna(QnaVO vo) {
+			return template.update("INSERT INTO QNA (\r\n"
+					+ "    QNA_CODE,\r\n"
+					+ "    QNA_SUB,\r\n"
+					+ "    QNA_NOTE,\r\n"
+					+ "    PAT_CODE\r\n"
+					+ ") VALUES (\r\n"
+					+ "    (SELECT 'Q'||TO_CHAR(SUBSTR(MAX(QNA_CODE),2,3)+1) FROM QNA),\r\n"
+					+ "    ?,  \r\n"
+					+ "    ?,  \r\n"
+					+ "    ?   \r\n"
+					+ ") ", vo.getQnaSub(), vo.getQnaNote(), vo.getPatCode());
+		}
 		
 	
 }

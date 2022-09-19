@@ -104,16 +104,17 @@ public class Home {
 							number = view.deleteNotice(noticeController);
 							number = view.getAdmNoticeList(noticeController);
 							break;
-//		               case ALLQNA: //
-//		                      number = view.getQnaList(qnaController);
-//		                      break;    
-		                case QNA_CHECK: //문의조회 - 환자
-		                      number = view.getQnaList(qnaController);
-		                      break;
+  
+						case QNA_CHECK:
+							number = view.getQnaList(qnaController);
+							break;
+						case SELQNA	:
+							number = view.getQnaList(qnaController);
+							number = view.searchQna(qnaController);
+							break;
 		                case INSERT_QNA : //문의등록 - 환자
 		                      number = view.insertQna(qnaController);
 		                      break;
-		                
 		                case  DELETE_QNA_CHECK : //문의삭제 - 관리자
 		                	  number = view.deleteQna(qnaController);
 		                      break;

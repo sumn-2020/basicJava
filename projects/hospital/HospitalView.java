@@ -254,6 +254,17 @@ public class HospitalView {
 		});
 		return HomeMenu.QNA.getMenu();
 	}
+	// qna 확인할 문의 (환자)
+	public int searchQna(QnaController controller) {
+		String searchWord = scanner.next();
+		System.out.println();
+		controller.selectQnaList2(searchWord).forEach(QnaVO -> {
+			System.out.printf("%s\t%s\t%s\t%s\n", "제목: " + QnaVO.getQnaSub(), "\n" + "등록일: "+ QnaVO.getQnaDate(), "\n관리자: " + QnaVO.getQnaCode(), 
+					"\n내용 : " + QnaVO.getQnaNote() + "\n");
+		});
+		return HomeMenu.QNA.getMenu();
+	}
+	
 
 	// qna 등록 (환자)
 	public int insertQna(QnaController controller) {

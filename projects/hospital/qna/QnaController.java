@@ -48,6 +48,13 @@ public class QnaController {
 	public List<QnaVO> selectQnaList() {
 		return service.findAll();
 	}
+	//확인할 문의
+	public List<QnaVO> findQnaId(String id){
+		return service.findQnaId(id);
+	}
+	
+	
+	
 	// qna 삭제-관리자
 	public int deleteQna(QnaVO vo) {
 		return service.deleteQna(vo);
