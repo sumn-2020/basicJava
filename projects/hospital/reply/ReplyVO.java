@@ -11,6 +11,7 @@ public class ReplyVO {
 	private Date replyDate;
 	private String adminCode; // 관리자코드
 	private String patCode; // 환자코드
+	private String patName; 
 
 	public ReplyVO() {
 		// TODO Auto-generated constructor stub
@@ -37,6 +38,15 @@ public class ReplyVO {
 		this.qnaCode = qnaCode;
 		this.replyNote = replyNote;
 		this.adminCode = adminCode;
+	}
+	
+
+	public String getPatName() {
+		return patName;
+	}
+
+	public void setPatName(String patName) {
+		this.patName = patName;
 	}
 
 	public String getQnaNote() {

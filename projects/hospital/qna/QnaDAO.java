@@ -33,14 +33,16 @@ public class QnaDAO {
 					+ " WHERE A.PAT_CODE = B.PAT_CODE ", new BeanPropertyRowMapper<>(QnaVO.class));
 		}
 		public List<QnaVO> findQnaId(String qnaId) {
-			return template.query("SELECT A.QNA_CODE,\r\n"
-					+ "       A.QNA_SUB,\r\n"
-					+ "       A.QNA_NOTE,\r\n"
-					+ "       B.PAT_NAME,\r\n"
-					+ "       A.QNA_DATE\r\n"
-					+ "  FROM QNA A, PATIENT B   \r\n"
-					+ " WHERE A.PAT_CODE = B.PAT_CODE\r\n"
-					+ "   AND A.QNA_CODE = ? ", new BeanPropertyRowMapper<>(QnaVO.class), qnaId);
+			return template.query("SELECT A.QNA_CODE, \r\n"
+					+ "	 A.QNA_SUB, \r\n"
+					+ "	A.QNA_NOTE, \r\n"
+					+ "	 B.PAT_NAME, \r\n"
+					+ "	 A.QNA_DATE, \r\n"
+					+ "	C.REPLY_NOTE, \r\n"
+					+ "	C.REPLY_DATE \r\n"
+					+ "	 FROM QNA A  \r\n"
+					+ "	INNER JOIN PATIENT B ON (A.PAT_CODE = B.PAT_CODE AND A.QNA_CODE = ?)  \r\n"
+					+ "	 LEFT OUTER JOIN REPLY C ON (A.QNA_CODE = C.QNA_CODE)  ", new BeanPropertyRowMapper<>(QnaVO.class), qnaId);
 		}
 
 		

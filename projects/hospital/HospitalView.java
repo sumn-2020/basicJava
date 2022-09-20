@@ -252,7 +252,7 @@ public class HospitalView {
 	// qna 전체목록
 	public int getQnaList(QnaController controller) {
 		controller.selectQnaList().forEach(QnaVO -> {
-			System.out.printf("%s\t%s\t%s\t\n", QnaVO.getQnaCode(), QnaVO.getQnaSub(), QnaVO.getQnaDate());
+			System.out.printf("%s\t%s\t%s\t%s\t\n", QnaVO.getQnaCode(), QnaVO.getQnaSub(), QnaVO.getQnaDate(),  QnaVO.getPatName());
 		});
 		return HomeMenu.QNA.getMenu();
 	}
@@ -261,8 +261,8 @@ public class HospitalView {
 		String searchWord = scanner.next();
 		System.out.println();
 		controller.selectQnaList2(searchWord).forEach(QnaVO -> {
-			System.out.printf("%s\t%s\t%s\t%s\n", "제목: " + QnaVO.getQnaSub(), "\n" + "등록일: "+ QnaVO.getQnaDate(), "\n관리자: " + QnaVO.getQnaCode(), 
-					"\n내용 : " + QnaVO.getQnaNote() + "\n");
+			System.out.printf("%s\t%s\t%s\t%s\t%s\n", "제목: " + QnaVO.getQnaSub(), "\n" + "등록일: "+ QnaVO.getQnaDate(), "\n작성자: " + QnaVO.getPatName(), 
+					"\n내용 : " + QnaVO.getQnaNote(), "\n" + "답변내용: " + QnaVO.getReplyNote());
 		});
 		return HomeMenu.QNA.getMenu();
 	}
@@ -297,7 +297,7 @@ public class HospitalView {
 	// qna 전체목록
 	public int getQnaListAdmin(QnaController controller) {
 		controller.selectQnaList().forEach(QnaVO -> {
-			System.out.printf("%s\t%s\t%s\t\n", QnaVO.getQnaCode(), QnaVO.getQnaSub(), QnaVO.getQnaDate());
+			System.out.printf("%s\t%s\t%s\t%s\t\n", QnaVO.getQnaCode(), QnaVO.getQnaSub(), QnaVO.getQnaDate(),  QnaVO.getPatName());
 		});
 		return HomeMenu.QNA_ADMIN.getMenu();
 	}
@@ -327,7 +327,7 @@ public class HospitalView {
 			replyVO.setAdminCode(HospitalApplication.getSession3().getAdminCode());
 			
 			scanner.nextLine();
-			System.out.println("내용:");
+			System.out.println("답변내용:");
 			String replyNote = scanner.nextLine();
 			 number = controller.insertReply(new ReplyVO(code, replyNote));
 			
@@ -348,7 +348,7 @@ public class HospitalView {
 		System.out.println();
 		controller.selectReplyList(searchWord).forEach(ReplyVO -> {
 			System.out.printf("%s\t%s\t%s\t%s\t\n", "제목: " + ReplyVO.getQnaSub(), "\n" + "등록일: "+ ReplyVO.getQnaDate(),  
-					"\n내용 : " + ReplyVO.getQnaNote(), "\n" + "답변: " + ReplyVO.getReplyNote()  + "\n");
+					"\n내용 : " + ReplyVO.getQnaNote(), "\n" + "답변내용: " + ReplyVO.getReplyNote()  + "\n");
 		});
 		return HomeMenu.QNA_ADMIN.getMenu();
 	}

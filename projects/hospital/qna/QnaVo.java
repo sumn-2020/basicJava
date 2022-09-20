@@ -6,6 +6,8 @@ public class QnaVO {
 	private String qnaNote;
 	private String qnaDate;
 	private String patCode;
+	private String patName;
+	private String replyNote; // 답변내용
 
 	public QnaVO() {
 	}
@@ -25,6 +27,23 @@ public class QnaVO {
 		this.qnaNote = qnaNote;
 		this.qnaDate = qnaDate;
 		this.patCode = patCode;
+	}
+
+
+	public String getReplyNote() {
+		return replyNote == null ? "답변없음" : replyNote;
+	}
+
+	public void setReplyNote(String replyNote) {
+		this.replyNote = replyNote;
+	}
+
+	public String getPatName() {
+		return patName;
+	}
+
+	public void setPatName(String patName) {
+		this.patName = patName;
 	}
 
 	public String getQnaCode() {
