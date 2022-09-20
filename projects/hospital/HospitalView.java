@@ -317,22 +317,27 @@ public class HospitalView {
 
 	// qna 답변(관리자)
 	public int replyQna(ReplyController controller) {
-		int number;
-		number = HomeMenu.QNA_REPLY.getMenu(); //
-		String code = scanner.next();
-		System.out.println("code : " + code);
-		ReplyVO replyVO = new ReplyVO();
-		replyVO.setQnaCode(code);
-		replyVO.setAdminCode(HospitalApplication.getSession3().getAdminCode());
-		
-		scanner.nextLine();
-		System.out.println("내용:");
-		String replyNote = scanner.nextLine();
-		 number = controller.insertReply(new ReplyVO(code, replyNote));
-		
-		System.out.println("등록되었습니다");
-		number = HomeMenu.QNA_ADMIN.getMenu();
-		return number;
+		try {
+			int number;
+			number = HomeMenu.QNA_REPLY.getMenu(); //
+			String code = scanner.next();
+			System.out.println("code : " + code);
+			ReplyVO replyVO = new ReplyVO();
+			replyVO.setQnaCode(code);
+			replyVO.setAdminCode(HospitalApplication.getSession3().getAdminCode());
+			
+			scanner.nextLine();
+			System.out.println("내용:");
+			String replyNote = scanner.nextLine();
+			 number = controller.insertReply(new ReplyVO(code, replyNote));
+			
+			System.out.println("등록되었습니다");
+			number = HomeMenu.QNA_ADMIN.getMenu();
+			return number;
+		} catch (Exception e) {
+			System.out.println("이미 답변이 존재합니다.");
+		}
+		return HomeMenu.QNA_ADMIN.getMenu();
 	}
 
 
@@ -343,12 +348,10 @@ public class HospitalView {
 		System.out.println();
 		controller.selectReplyList(searchWord).forEach(ReplyVO -> {
 			System.out.printf("%s\t%s\t%s\t%s\t\n", "제목: " + ReplyVO.getQnaSub(), "\n" + "등록일: "+ ReplyVO.getQnaDate(),  
-					"\n내용 : " + ReplyVO.getQnaNote(), "\n" + "댓글: " + ReplyVO.getReplyNote()  + "\n");
+					"\n내용 : " + ReplyVO.getQnaNote(), "\n" + "답변: " + ReplyVO.getReplyNote()  + "\n");
 		});
 		return HomeMenu.QNA_ADMIN.getMenu();
 	}
 	
-	
-	
-	
+
 }

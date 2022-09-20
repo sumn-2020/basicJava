@@ -80,16 +80,16 @@ public class ReplyDAO {
 //	
 	
 	public List<ReplyVO> findReplyId(String ReplyId) {
-		return template.query("SELECT A.QNA_SUB,  \r\n"
+		return template.query("SELECT A.QNA_CODE,\r\n"
+				+ "       A.QNA_SUB,\r\n"
 				+ "       A.QNA_NOTE,\r\n"
-				+ "       B.PAT_NAME, \r\n"
+				+ "       B.PAT_NAME,\r\n"
 				+ "       A.QNA_DATE,\r\n"
 				+ "       C.REPLY_NOTE,\r\n"
 				+ "       C.REPLY_DATE\r\n"
-				+ "  FROM QNA A, PATIENT B, REPLY C\r\n"
-				+ " WHERE A.PAT_CODE = B.PAT_CODE\r\n"
-				+ "   AND A.QNA_CODE = C.QNA_CODE\r\n"
-				+ "   AND A.QNA_CODE = ?   ", new BeanPropertyRowMapper<>(ReplyVO.class), ReplyId);
+				+ "  FROM QNA A \r\n"
+				+ "  INNER JOIN PATIENT B ON (A.PAT_CODE = B.PAT_CODE AND A.QNA_CODE = ?)  \r\n"
+				+ "  LEFT OUTER JOIN REPLY C ON (A.QNA_CODE = C.QNA_CODE)   ", new BeanPropertyRowMapper<>(ReplyVO.class), ReplyId);
 	}
 	
 	
