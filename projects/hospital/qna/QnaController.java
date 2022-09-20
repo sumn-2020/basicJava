@@ -65,7 +65,7 @@ public class QnaController {
 		return service.findQnaId(id);
 	}
 	
-
+	
 	
 
 	

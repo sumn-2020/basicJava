@@ -43,6 +43,7 @@ public enum HomeMenu {
     QNA_ADMIN(63, "631.문의조회\t632.확인할 문의 번호입력\t633.답변달기\t634.문의삭제\t6.뒤로가기"),
     ALLQNA_ADMIN(631,"[문의 목록] "),
     SELQNA_ADMIN(632,"문의 번호입력: "),
+    INSERT_QNA_ADMIN(632, "문의글 작성"),
     QNA_REPLY(633,"답변할 게시물 번호를 입력하세요. "),
     DELETEQNA_ADMIN(634, "삭제할 게시물 번호를 입력하세요.")
     

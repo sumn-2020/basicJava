@@ -1,8 +1,11 @@
 package hospital.reply;
 
+import java.util.List;
+
 import hospital.HospitalApplication;
 import hospital.common.HomeMenu;
 import hospital.join.AdminVO;
+import hospital.notice.NoticeVO;
 import hospital.qna.QnaVO;
 
 
@@ -40,4 +43,12 @@ public class ReplyController {
 	public int insertReply(ReplyVO vo) {
 		return service.insertReply(vo);
 	}
+
+	
+	// 확인할 답변
+	public List<ReplyVO> selectReplyList(String id){
+		return service.findReplyId(id);
+	}
+	
+	
 }

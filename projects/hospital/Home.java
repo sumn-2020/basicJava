@@ -125,12 +125,12 @@ public class Home {
 							break;
 						case SELQNA_ADMIN:
 							number = view.getQnaListAdmin(qnaController);
-							number = view.searchQnaAdmin(qnaController);
-							break;	 	
+							number = view.searchReplyAdmin(replyController);
+							break;	 
 		                case DELETEQNA_ADMIN : //문의삭제 
 		                	  number = view.deleteQna(qnaController);
 		                	  break; 
-		                case QNA_REPLY: //답변
+		                case QNA_REPLY: //답변등록
 		                	number = view.getQnaListAdmin(qnaController);
 		                	number = view.replyQna(replyController);
 		                	break;

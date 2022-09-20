@@ -1,5 +1,8 @@
 package hospital.reply;
 
+import java.util.List;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import hospital.HospitalApplication;
@@ -64,6 +67,34 @@ public class ReplyDAO {
 				+ ") ", vo.getQnaCode(), vo.getReplyNote(), vo.getAdminCode());
 		
 	}
+	
+	//qna 전체목록 조회- 환자 
+//	public List<QnaVO> findAll() {
+//		return template.query("SELECT A.QNA_CODE,\r\n"
+//				+ "       A.QNA_SUB,\r\n"
+//				+ "       B.PAT_NAME,\r\n"
+//				+ "       A.QNA_DATE\r\n"
+//				+ "  FROM QNA A, PATIENT B   \r\n"
+//				+ " WHERE A.PAT_CODE = B.PAT_CODE ", new BeanPropertyRowMapper<>(QnaVO.class));
+//	}
+//	
+	
+	public List<ReplyVO> findReplyId(String ReplyId) {
+		return template.query("SELECT A.QNA_SUB,  \r\n"
+				+ "       A.QNA_NOTE,\r\n"
+				+ "       B.PAT_NAME, \r\n"
+				+ "       A.QNA_DATE,\r\n"
+				+ "       C.REPLY_NOTE,\r\n"
+				+ "       C.REPLY_DATE\r\n"
+				+ "  FROM QNA A, PATIENT B, REPLY C\r\n"
+				+ " WHERE A.PAT_CODE = B.PAT_CODE\r\n"
+				+ "   AND A.QNA_CODE = C.QNA_CODE\r\n"
+				+ "   AND A.QNA_CODE = ?   ", new BeanPropertyRowMapper<>(ReplyVO.class), ReplyId);
+	}
+	
+	
+	
+	
 	
 	
 }

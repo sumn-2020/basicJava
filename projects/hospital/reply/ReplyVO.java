@@ -4,14 +4,28 @@ import java.sql.Date;
 
 public class ReplyVO {
 	private String qnaCode;
+	private String qnaSub; //글제목
+	private String qnaDate; //작성일
+	private String qnaNote; //문의글 
 	private String replyNote; //답변내용
 	private Date replyDate;
 	private String adminCode; //관리자코드
+	private String patCode; //환자코드 
 	
+
 	public ReplyVO() {
 		// TODO Auto-generated constructor stub
 	}
 	
+
+	public void setQnaDate(String qnaDate) {
+		this.qnaDate = qnaDate;
+	}
+
+	public void setQnaSub(String qnaSub) {
+		this.qnaSub = qnaSub;
+	}
+
 	public ReplyVO(String replyNote) {
 		this.replyNote = replyNote;
 	}
@@ -25,6 +39,35 @@ public class ReplyVO {
 		this.qnaCode = qnaCode;
 		this.replyNote = replyNote;
 		this.adminCode = adminCode;
+	}
+	
+	
+	
+	public String getQnaNote() {
+		return qnaNote;
+	}
+
+	public void setQnaNote(String qnaNote) {
+		this.qnaNote = qnaNote;
+	}
+
+	public String getQnaSub() {
+		return qnaSub;
+	}
+
+	public String getQnaDate() {
+		return qnaDate;
+	}
+
+	
+	
+	
+	public String getPatCode() {
+		return patCode;
+	}
+
+	public void setPatCode(String patCode) {
+		this.patCode = patCode;
 	}
 
 	public String getQnaCode() {

@@ -28,13 +28,21 @@ public class ReplyService {
 //		return dao.findQnaId(qnaId);
 		return null;
 	}
+	
+
+	
+	
 	//qna 답변 - 관리자
 	public int insertReply(ReplyVO vo) {
 		return dao.insertReply(vo);
 	}
-	
-	
-	
+
+	// 확인할 답변
+	public List<ReplyVO> findReplyId(String qnaId) {
+		return dao.findReplyId(qnaId);
+	}
+
+
 	
 	
 	

@@ -301,16 +301,8 @@ public class HospitalView {
 		});
 		return HomeMenu.QNA_ADMIN.getMenu();
 	}
-	// qna 확인할 문의 
-	public int searchQnaAdmin(QnaController controller) {
-		String searchWord = scanner.next();
-		System.out.println();
-		controller.selectQnaList2(searchWord).forEach(QnaVO -> {
-			System.out.printf("%s\t%s\t%s\t%s\n", "제목: " + QnaVO.getQnaSub(), "\n" + "등록일: "+ QnaVO.getQnaDate(), "\n관리자: " + QnaVO.getQnaCode(), 
-					"\n내용 : " + QnaVO.getQnaNote() + "\n");
-		});
-		return HomeMenu.QNA_ADMIN.getMenu();
-	}
+
+	
 	// qna 삭제
 	public int deleteQnaAdmin(QnaController controller) {
 		int number;
@@ -327,33 +319,36 @@ public class HospitalView {
 	public int replyQna(ReplyController controller) {
 		int number;
 		number = HomeMenu.QNA_REPLY.getMenu(); //
-		
 		String code = scanner.next();
-		
 		System.out.println("code : " + code);
-		
 		ReplyVO replyVO = new ReplyVO();
-		
 		replyVO.setQnaCode(code);
 		replyVO.setAdminCode(HospitalApplication.getSession3().getAdminCode());
 		
 		scanner.nextLine();
 		System.out.println("내용:");
 		String replyNote = scanner.nextLine();
-		
-		//System.out.println("replyVO : " + replyVO.toString());
-		//number = controller.insertReply(replyVO);
-		//System.out.println("insert결과 : " + number);
-
-		//replyVO.setReplyNote(replyNote);
-		//String reply = replyVO.getReplyNote();
-		//number = controller.insertReply(replyVO);
 		 number = controller.insertReply(new ReplyVO(code, replyNote));
-		//number = controller.insertReply(new QnaVO(sub, note));
 		
 		System.out.println("등록되었습니다");
 		number = HomeMenu.QNA_ADMIN.getMenu();
 		return number;
 	}
 
+
+	
+	// 답변 확인
+	public int searchReplyAdmin(ReplyController controller) {
+		String searchWord = scanner.next();
+		System.out.println();
+		controller.selectReplyList(searchWord).forEach(ReplyVO -> {
+			System.out.printf("%s\t%s\t%s\t%s\t\n", "제목: " + ReplyVO.getQnaSub(), "\n" + "등록일: "+ ReplyVO.getQnaDate(),  
+					"\n내용 : " + ReplyVO.getQnaNote(), "\n" + "댓글: " + ReplyVO.getReplyNote()  + "\n");
+		});
+		return HomeMenu.QNA_ADMIN.getMenu();
+	}
+	
+	
+	
+	
 }
