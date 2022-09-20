@@ -49,6 +49,11 @@ public class ReplyController {
 	public List<ReplyVO> selectReplyList(String id){
 		return service.findReplyId(id);
 	}
+	//  삭제
+	public int deleteReply(ReplyVO vo) {
+		return service.deleteReply(vo);
+	}
+	
 	
 	
 }

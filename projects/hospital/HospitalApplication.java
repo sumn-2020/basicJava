@@ -48,7 +48,7 @@ public class HospitalApplication {
 	public static JdbcTemplate getTemplate() {
 		try {
 			OracleDataSource dataSource = new OracleDataSource();
-			dataSource.setURL("jdbc:oracle:thin:@localhost:1521:xe");
+			dataSource.setURL("jdbc:oracle:thin:@192.168.35.32:1521:xe");
 			dataSource.setUser("practice");
 			dataSource.setPassword("java");
 			template.setDataSource(dataSource);

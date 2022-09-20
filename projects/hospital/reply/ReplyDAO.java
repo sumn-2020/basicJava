@@ -93,6 +93,13 @@ public class ReplyDAO {
 	}
 	
 	
+	// 삭제 
+	public int deleteReply(ReplyVO vo) {
+		return template.update("DELETE FROM QNA\r\n"
+				+ "   WHERE QNA_CODE = ? ", vo.getQnaCode());
+	}
+	
+	
 	
 	
 	
