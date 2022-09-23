@@ -70,9 +70,15 @@ class totalScore implements Comparator<Student> {
 
 	@Override
 	public int compare(Student student1, Student student2) {
-		return Integer.compare(student1.getTotalScore(), student2.getTotalScore()) * -1;
+		
+		if(student1.getTotalScore() > student2.getTotalScore()) {
+			return -1;
+		}else if(student1.getTotalScore() < student2.getTotalScore()) {
+			return 1;
+		}else {
+			return Integer.compare(student1.getTotalScore(), student2.getTotalScore()) * -1;
+		}	
 	}
-
 }
 
 // 학번, 이름, 국어점수, 영어점수, 수학점수, 총점, 등수를 멤버로 갖는 Student클래스를 만든다.
