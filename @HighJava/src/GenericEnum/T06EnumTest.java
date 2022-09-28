@@ -9,11 +9,15 @@ public class T06EnumTest {
 	 * 
 	 */
 
-	// City 열거형 객체 선언(기본갑승ㄹ 이용하는 열거형)
+	// City 열거형 객체 선언(기본값을 이용하는 열거형)
 	public enum City {
 		서울, 부산, 대구, 광주, 대전
 	};
 
+	public enum Hometown {
+		대구, 서울, 대전, 부산, 울산, 진주
+	}
+	
 	// 데이터값을 임의로 지정한 열거형 객체 선언
 	// 데이터값을 정해줄 경우에는 생성자를 만들어서 괄호속의 값이 변수에 저장되도록 한다.
 	public enum Season {
@@ -23,7 +27,7 @@ public class T06EnumTest {
 		private String str;
 
 		// 생성자 만들기(열거형의 생성자는 제어자가 묵시적으로 'private'이다.)
-		Season(String data) {
+		Season(String data) { //봄("3월부터 5월까지") => 괄호 속 내용이 data로 들어옴
 			this.str = data;
 		}
 
@@ -34,9 +38,11 @@ public class T06EnumTest {
 
 		public static void main(String[] args) {
 			/*
-			 * 열거형에서 사용되는 메서드 1. name() => 열거형 상수의 이름을 문자열로 반환한다. 2. ordinal() => 열거형 상수가 정의
-			 * 된 순서값을 반환한다.(기본적으로 0부터 시작) 3. valueOf("열거형상수이름") => 지정된 열거형에서 '열거형상수이름'과 일치하는
-			 * 열거형상수를 반환한다.
+			 * 열거형에서 사용되는 메서드 
+			 * 1. name() => 열거형 상수의 이름을 문자열로 반환한다. 
+			 * 2. ordinal() => 열거형 상수가 정의된 순서값을 반환한다.(기본적으로 0부터 시작) 
+			 * 3. valueOf("열거형상수이름") => 지정된 열거형에서 '열거형상수이름'과 일치하는 열거형상수를 반환한다.
+			 * 
 			 */
 			City myCity1; // 열거형 객체변수 선언
 			City myCity2;
@@ -68,12 +74,22 @@ public class T06EnumTest {
 			}
 
 			City city = City.대구;
+			
+			Enum<City> city2 = City.대구;
+			
+			
+			
+			
+			
+			
+			
 			System.out.println(city == City.대전);
 			System.out.println(city == City.대구);
+			//System.out.println(city == Hometown.대구); //Hometow에 해당하는 대구와 city에 해당하는 대구는 서로 다름
 
-			System.out.println("대구 =>" + city.compareTo(City.대구));
-			System.out.println("서울 => " + city.compareTo(City.서울));
-			System.out.println("대전 =>" + city.compareTo(City.대전));
+			System.out.println("대구 =>" + city.compareTo(City.대구)); //출력 : 0 => 같음 
+			System.out.println("서울 => " + city.compareTo(City.서울)); //출력 : 2 => 양수 출력 : 앞에거가 더 큼 
+			System.out.println("대전 =>" + city.compareTo(City.대전)); //출력: -2 => 음수 출력 : 뒤에거가 더 큼
 
 		}
 
