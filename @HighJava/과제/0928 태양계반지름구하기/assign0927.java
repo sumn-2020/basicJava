@@ -2,7 +2,7 @@ package assign;
 
 public class assign0927 {
 
-	// 문제) 태양계 행성을 나타내는 enum Planet을 이용하여 구하시오.
+	// 문제) 태양계 행성을 나타내는 enum Planet을 이용하여 면적을 구하시오.
 	// (단, enum 객체 생성시 반지름을 이용하도록 정의하시오.)
 
 	/*
@@ -43,13 +43,15 @@ public class assign0927 {
 //		Planet pp = Planet.valueOf("수성");
 //		System.out.println(pp.name()); //열거형 상수의 이름을 문자열로 반환한다. 
 //		System.out.println(pp.ordinal()); //열거형 상수가 정의된 순서값을 반환한다.(기본적으로 0부터 시작) 
-//		System.out.println(pp.getKm()); //지정된 열거형에서 '열거형상수이름'과 일치하는 열거형상수를 반환한다.
+//		System.out.println(pp.getKm()); //지정된 열거형에서 '열거형상수이름'과 일치하는 열거형상수를 반환한다. 괄호 속에 들어있는 값 가져오기
 //		System.out.println("===================================");
 		
 		// 열거형이름.values() => 데이터를 배열로 리턴함
 		Planet[] planetArr = Planet.values();
 		for (Planet p : planetArr) {
-			System.out.println(p.name() + ":" + p.getKm() + "Km");
-		}
+			//System.out.println(p.name() + ":" + p.getKm() + "Km"); //행성 반지름 
+			double planetArea = 4 * Math.PI *  p.getKm() * p.getKm();
+			System.out.println( p.name() + ":" + p.getKm() + " => " + planetArea + "㎢" ); //행성 면적  4πr2
+		} 
 	}
 }
