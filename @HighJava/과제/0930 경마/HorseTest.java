@@ -124,7 +124,7 @@ class Horse extends Thread implements Comparable<Horse> {
 	@Override
 	public void run() {
 
-		for (int i = 1; i <= 50; i++) { // 경기 횟수
+		for (int i = 1; i <= 50; i++) { 
 
 			location = i; // i는 말의 현재위치로 저장
 
