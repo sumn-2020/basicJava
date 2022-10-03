@@ -1,4 +1,4 @@
-package horse;
+package assign.horse;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +24,12 @@ import java.util.Random;
 ...
 
 경기가 끝나면 등수를 기준으로 정렬하여 출력한다.
+
+1) Horse라는 이름의 클래스 => 말이름(String), 등수(int)를 멤버변수
+2) 말들이 시끄럽게 달리지 않기 => 말들의 위치를 알수 있는 클래스 
+3) 오름차순 정렬하여 막판에 등수 나타내기  =>  Horse 클래스에  Comparable 인터페이스 구현 
+4) 경기구간 1~50
+
 
  */
 
@@ -142,7 +148,7 @@ class Horse extends Thread implements Comparable<Horse> {
 
 		// 랭크 값 계산 : 랭크 값 들고와서 +1 씩 더하기
 		// 골인한 경마 순으로 랭크가 증감,for문을 벗어나면 말의 position은 50이 됨. ⇒ 골인
-		rank = ++Horse.currentRank;
+		rank = Horse.currentRank++;
 
 	}
 
@@ -171,6 +177,10 @@ class HorsePoint extends Thread {
 				break;
 			}
 
+			for (int i = 1; i <= 10; i++) {
+				System.out.println();
+			}
+			
 			for (Horse horse : horses) { // ArrayList속에 들어있는 10마리의 말 전부 아래내용 반복실행
 				System.out.print(horse.getName() + " : "); // Horse클래스에서 getName출력
 				for (int i = 1; i <= 50; i++) {
