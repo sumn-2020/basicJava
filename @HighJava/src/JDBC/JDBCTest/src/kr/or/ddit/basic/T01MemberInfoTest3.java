@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import kr.or.ddit.util.JDBCUtil3;
+import kr.or.ddit.util.JDBCUtil;
 
 /*
 	회원정보를 관리하는 프로그램을 작성하는데 
@@ -43,7 +43,7 @@ insert into mymember(MEM_ID, MEM_NAME, MEM_TEL, MEM_ADDR, REG_DT)
 values('a001', '홍길동', '12111-111', '대전시',  sysdate);
 
 */
-public class T01MemberInfoTest {
+public class T01MemberInfoTest3 {
 
 	private Connection conn;
 	private Statement stmt;
@@ -111,7 +111,7 @@ public class T01MemberInfoTest {
 		// jdbc코딩
 		try {
 
-			conn = JDBCUtil3.getConnection();
+			conn = JDBCUtil.getConnection();
 
 			String sql = "select * from mymember";
 
@@ -134,7 +134,7 @@ public class T01MemberInfoTest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil3.close(conn, stmt, pstmt, rs);
+			JDBCUtil.close(conn, stmt, pstmt, rs);
 		}
 
 	}
@@ -151,7 +151,7 @@ public class T01MemberInfoTest {
 		String memId = scan.next();
 
 		try {
-			conn = JDBCUtil3.getConnection();
+			conn = JDBCUtil.getConnection();
 
 			String sql = "delete from mymember where mem_id = ?";
 
@@ -168,7 +168,7 @@ public class T01MemberInfoTest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil3.close(conn, stmt, pstmt, rs);
+			JDBCUtil.close(conn, stmt, pstmt, rs);
 		}
 
 	}
@@ -209,7 +209,7 @@ public class T01MemberInfoTest {
 		String memAddr = scan.nextLine();
 
 		try {
-			conn = JDBCUtil3.getConnection();
+			conn = JDBCUtil.getConnection();
 
 			String sql = "update mymember " + " set MEM_NAME = ?, " + " MEM_TEL = ?, " + " MEM_ADDR = ? "
 					+ " where MEM_ID = ?";
@@ -231,7 +231,7 @@ public class T01MemberInfoTest {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		} finally {
-			JDBCUtil3.close(conn, stmt, pstmt, rs);
+			JDBCUtil.close(conn, stmt, pstmt, rs);
 		}
 	}
 
@@ -280,7 +280,7 @@ public class T01MemberInfoTest {
 			// 1. connection 만들기
 			// conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",
 			// "practice", "java");
-			conn = JDBCUtil3.getConnection(); // JDBCUtil3클래스에서 getConnection메소드 들고오기
+			conn = JDBCUtil.getConnection(); // JDBCUtil클래스에서 getConnection메소드 들고오기
 
 			// 2. sql쿼리 가져오기
 			String sql = "insert into mymember " + " (MEM_ID, MEM_NAME, MEM_TEL, MEM_ADDR, REG_DT)"
@@ -309,7 +309,7 @@ public class T01MemberInfoTest {
 		} finally {
 
 			// 5. 자원반납 close
-			JDBCUtil3.close(conn, stmt, pstmt, rs);
+			JDBCUtil.close(conn, stmt, pstmt, rs);
 //			if(rs != null) try{ rs.close(); } catch(SQLException ex) {} //rs가 null이 아니면 close 시켜주기 
 //			if(stmt != null) try{ stmt.close(); } catch(SQLException ex) {}
 //			if(pstmt != null) try{ pstmt.close(); } catch(SQLException ex) {}
@@ -330,7 +330,7 @@ public class T01MemberInfoTest {
 		boolean exist = false;
 
 		try {
-			conn = JDBCUtil3.getConnection();
+			conn = JDBCUtil.getConnection();
 
 			String sql = "select count(*) as cnt " + " from mymember " + " where mem_id = ? ";
 
@@ -352,14 +352,14 @@ public class T01MemberInfoTest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JDBCUtil3.close(conn, stmt, pstmt, rs);
+			JDBCUtil.close(conn, stmt, pstmt, rs);
 		}
 
 		return exist;
 	}
 
 	public static void main(String[] args) {
-		T01MemberInfoTest memObj = new T01MemberInfoTest();
+		T01MemberInfoTest3 memObj = new T01MemberInfoTest3();
 		memObj.start();
 	}
 
