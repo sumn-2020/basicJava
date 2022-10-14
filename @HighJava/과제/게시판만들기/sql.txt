@@ -1,0 +1,66 @@
+create table mymember(
+    mem_id varchar2(8) not null,  -- 회원ID
+    mem_name varchar2(100) not null, -- 이름
+    mem_tel varchar2(50) not null, -- 전화번호
+    mem_addr varchar2(128),    -- 주소
+    reg_dt DATE DEFAULT sysdate, -- 등록일
+    CONSTRAINT MYMEMBER_PK PRIMARY KEY (mem_id)
+);
+
+
+
+create table jdbc_board(
+    board_no number not null,  -- 번호(자동증가)
+    board_title varchar2(100) not null, -- 제목
+    board_writer varchar2(50) not null, -- 작성자
+    board_date date not null,   -- 작성날짜
+    board_content clob,     -- 내용
+    constraint pk_jdbc_board primary key (board_no)
+);
+
+
+
+-- insert
+--drop sequence board_seq;
+
+create sequence board_seq
+    start with 1   -- 시작번호
+    increment by 1; -- 증가값
+
+--시퀀스 현재값 구하기
+select board_seq.currval from dual;
+    
+insert into jdbc_board 
+ (board_no, board_title, board_writer, board_date, board_content)
+ values(board_seq.nextval, '제목', '작성자', sysdate, '내용');
+
+select * from jdbc_board;
+--delete from jdbc_board;
+
+
+--update
+update jdbc_board 
+    set board_title = 'ddd', 
+        board_writer = '홍길동',
+        board_content = 'sdgsdgfhfh'
+where board_no = 1;
+
+
+select count(*) as cnt 
+from jdbc_board 
+where board_no = 1
+;
+
+
+
+
+select * from jdbc_board where 1=1
+;
+
+
+
+
+
+
+
+	    	
