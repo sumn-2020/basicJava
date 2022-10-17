@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class BoardVO {
 
-	private int boardNum;
+	private String boardNum;
 	private String boardTit;
 	private String boardWriter;
 	private Date boardDate;
 	private String boardCont;
 	
-	public int getBoardNum() {
+	public String getBoardNum() {
 		return boardNum;
 	}
-	public void setBoardNum(int boardNum) {
+	public void setBoardNum(String boardNum) {
 		this.boardNum = boardNum;
 	}
 	public String getBoardTit() {
@@ -45,6 +45,7 @@ public class BoardVO {
 		return "BoardVO [boardNum=" + boardNum + ", boardTit=" + boardTit + ", boardWriter=" + boardWriter
 				+ ", boardDate=" + boardDate + ", boardCont=" + boardCont + "]";
 	}
+
 
 	
 }

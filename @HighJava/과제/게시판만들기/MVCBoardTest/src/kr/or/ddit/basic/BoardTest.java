@@ -6,8 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
+import kr.or.ddit.Board.service.BoardServiceImpl;
+import kr.or.ddit.Board.service.IBoardService;
+import kr.or.ddit.Board.vo.BoardVO;
 import kr.or.ddit.util.JDBCUtil;
 
 /*
@@ -40,12 +44,13 @@ create sequence board_seq
 
 public class BoardTest {
 
-	private Connection conn;
-	private Statement stmt;
-	private PreparedStatement pstmt;
-	private ResultSet rs;
+	private IBoardService boardService;
 
 	private Scanner scan = new Scanner(System.in);
+
+	public BoardTest() {
+		boardService = new BoardServiceImpl(); // service 인터페이스 불러오기
+	}
 
 	/**
 	 * 메뉴를 출력하는 메서드
@@ -97,348 +102,186 @@ public class BoardTest {
 
 		} while (choice != 6); // 6이 아니면 do while문 빠져나가고 기면 계속 반복
 	}
+	
+	
+	
+	
+	
+	
 
+	private void searchBoard() {
 
-
-	/**
-	 * 게시글을 추가하는 메서드 :새글작성
-	 */ 
-	private void insertBoard() {
-
-		boolean exist = false;
 		
-	    System.out.println("제목 >> ");
-	    String boardTit = scan.next();
-	    
-	    System.out.println("작성자 >> ");
-	    String boardWriter = scan.next(); 
-	    
-	    scan.nextLine(); //버퍼지우기
-	    System.out.println("내용  >> ");
-	    String boardContent = scan.nextLine();
+		scan.nextLine(); // 퍼버 비우기
+		System.out.println();
+		System.out.println("검색할 게시글 정보를 입력하세요");
 		
-	    //JDBC코딩시작
-	    try {
-	    	
-	    	//반복되는 건 JDBCUtil에가다가 모아놓고 갖다써
-	    	//1) 드라이버 로딩하기 : Class.forName("oracle.jdbc.driver.OracleDriver");
-	    	//2) connection만들기 : conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "practice", "java");
-			
-	    	// 1. connection 만든거 들고오기 
-	    	conn = JDBCUtil.getConnection(); 
-	    	
-	    	//2. sql쿼리 가져오기 
-	    	/*
-	    	 insert into jdbc_board 
-			 (board_no, board_title, board_writer, board_date, board_content)
-			 values(board_seq.nextval, '제목', '작성자', sysdate, '내용')
-	    	 */
-	    	String sql = " insert into jdbc_board " 
-	    			  + " (board_no, board_title, board_writer, board_date, board_content) " 
-	    			  + " values(board_seq.nextval, ? , ?, sysdate, ?) ";
-	    	
-	    	//3. prepareStatement 객체 만들기
-	    	pstmt = conn.prepareStatement(sql);
-	    	pstmt.setString(1, boardTit); //첫번째 물음표에 제목들어감
-	    	pstmt.setString(2, boardWriter); //작성자
-	    	pstmt.setString(3, boardContent); //내용
-	    	
-	    	
-	    	//4. 쿼리 날리기 
-	    	// execute"Query" = > select일때
-	    	// execute"Update" => insert 등 그외 일때
-	    	int cnt = pstmt.executeUpdate();
-	    	if(cnt > 0 ) { //insert 됐을 경우 
-	    		System.out.println("게시글 등록 성공");
-	    	}else {
-	    		System.out.println("게시글 등록 실패");
-	    	}
-	    	
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
+		System.out.println("게시글 번호 >> ");
+		String boardNum = scan.nextLine().trim(); // 좌우 공백지우기 trim
+
+		System.out.println("제목 >> ");
+		String boardTit = scan.nextLine().trim();
+
+		System.out.println("작성자 >> ");
+		String boardWriter = scan.nextLine().trim();
+
+		//scan.nextLine(); // 버퍼지우기
+		System.out.println("내용  >> ");
+		String boardCont = scan.nextLine().trim();
 		
-			//자원반납 
-			JDBCUtil.close(conn, stmt, pstmt, rs);
-			//반복되는 건 JDBCUtil에가다가 모아놓고 갖다써
-//			if(rs != null) try{ rs.close(); } catch(SQLException ex) {} //rs가 null이 아니면 close 시켜주기 
-//			if(stmt != null) try{ stmt.close(); } catch(SQLException ex) {}
-//			if(pstmt != null) try{ pstmt.close(); } catch(SQLException ex) {}
-//			if(conn != null) try{ conn.close(); } catch(SQLException ex) {} //conn도  null이 아니면 close 시켜주기
+		BoardVO bv = new BoardVO();
+		bv.setBoardNum(boardNum);
+		bv.setBoardTit(boardTit);
+		bv.setBoardWriter(boardWriter);
+		bv.setBoardCont(boardCont);
+		
+		
+		System.out.println();
+		System.out.println("-------------------");
+		System.out.println("글번호\t글제목\t작성자\t글내용\t작성일");
+		System.out.println("-------------------");
+		
+		List<BoardVO> searchList = boardService.searchBoard(bv);
+		
+		if(searchList.size() == 0) {
+			System.out.println("게시글이 존재하지 않습니다.");
+		}else {
+			for (BoardVO bv2 : searchList) {
+				System.out.println(bv2.getBoardNum() + "\t" +  bv2.getBoardTit() + "\t" + bv2.getBoardWriter() + "\t" + 
+						bv2.getBoardCont() + "\t" + bv2.getBoardDate());
+			}
 		}
+		System.out.println("-----------------------");
+		System.out.println("검색작업 끝");
+
+		
+		
 	}
 
-	/**
-	 * 전체 게시글을 출력하기 위한 메서드
-	 */
 	private void selectAllBoard() {
 
 		System.out.println();
-		System.out.println("--------------------------------------------------------------");
-		System.out.println("번호\t제목\t작성자\t작성일\t\t내용");
-		System.out.println("--------------------------------------------------------------");
-		
-		//jdbc코딩
-		try {
-			conn = JDBCUtil.getConnection();
-			
-			String sql = "select * from jdbc_board";
-			
-			stmt = conn.createStatement();
-			
-			rs = stmt.executeQuery(sql);
-			
-			while(rs.next()) { // 하나씩 꺼내서
-				int boardNum = rs.getInt("board_no");
-				Date boardDate = rs.getDate("board_date");
-				
-				String boardTit = rs.getString("board_title");
-				String boardWriter = rs.getString("board_writer");
-				String boardContent = rs.getString("board_content");
-			
-				System.out.println(boardNum + "\t" +  boardTit + "\t" + boardWriter + "\t" + boardDate + "\t" + boardContent);
+		System.out.println("-------------------");
+		System.out.println("글번호\t글제목\t작성자\t글내용\t작성일");
+		System.out.println("-------------------");
+
+		List<BoardVO> boardList = boardService.selectAllBoard();
+
+		if (boardList.size() == 0) {
+			System.out.println("회원정보가 존재하지 않습니다.");
+		} else {
+			for (BoardVO bv : boardList) {
+				System.out.println(bv.getBoardNum() + "\t" +  bv.getBoardTit() + "\t" + bv.getBoardWriter() + "\t" + 
+			bv.getBoardCont() + "\t" + bv.getBoardDate());
 			}
-			System.out.println("--------------------------------------------------------------");;
-			System.out.println("출력작업 끝");
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCUtil.close(conn, stmt, pstmt, rs);
 		}
+		System.out.println("-----------------------------");
+		System.out.println("출력작업 끝");
+
 	}
-	
-	/**
-	 * 회원정보를 수정하기 위한 메서드
-	 */
+
+	private void deleteBoard() {
+
+		System.out.println();
+		System.out.println("삭제할 게시글번호를 입력하세요");
+		System.out.println("글 번호 >> ");
+
+		int boardNum = scan.nextInt();
+
+		int cnt = boardService.removeBoard(boardNum);
+		if (cnt > 0) {
+			System.out.println("게시글 삭제 성공");
+		} else {
+			System.out.println("게시글 삭제 실패");
+		}
+
+	}
+
 	private void updateBoard() {
-		
 		boolean exist = false;
-		
-		int boardNum = 0;
-		
+
+		String boardNum = "";
+		//String boardCont = "";
+
 		do {
-			
+
 			System.out.println();
 			System.out.println("수정할 게시글 번호를 입력하세요.");
 			System.out.println("게시글 번호 >> ");
-			
-			boardNum = scan.nextInt();
-			
-			exist = checkBoard(boardNum);
-			
+
+			boardNum = scan.next();
+
+			exist = boardService.checkBoard(boardNum);
+
 			if (!exist) {
 				System.out.println("게시글 번호" + boardNum + "번은 존재하지 않습니다.");
 				System.out.println("다시 입력해주세요");
 			}
-			
+
 		} while (!exist);
-		
 
-	    System.out.print("제목 >> ");
-	    String boardTit = scan.next();
-	    
-	    System.out.print("작성자 >> ");
-	    String boardWriter = scan.next(); 
-	    
-	    scan.nextLine(); //버퍼지우기
-	    System.out.print("내용  >> ");
-	    String boardContent = scan.nextLine();
-	    
-	    //jdbc코딩시작
-	    try {
-			
-	    	conn = JDBCUtil.getConnection();
-	    	
-	    	String sql = " update jdbc_board "  
-	    			+ " set board_title = ?, " 
-	    			+ "     board_writer = ?, " 
-	    			+ "     board_content = ? " 
-	    			+ " where board_no = ? " ; 
-	    	
-	    	pstmt = conn.prepareStatement(sql);
-	    	pstmt.setString(1, boardTit); //첫번째 물음표에 제목들어감
-	    	pstmt.setString(2, boardWriter); //작성자
-	    	pstmt.setString(3, boardContent); //내용
-			pstmt.setInt(4, boardNum); //넘버
-			
-			int cnt = pstmt.executeUpdate();
-			
-	    	if(cnt > 0 ) { 
-	    		System.out.println("게시글 수정 성공");
-	    	}else {
-	    		System.out.println("게시글 수정 실패");
-	    	}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCUtil.close(conn, stmt, pstmt, rs);
+		System.out.print("제목 >> ");
+		String boardTit = scan.next();
+
+		System.out.print("작성자 >> ");
+		String boardWriter = scan.next();
+
+		scan.nextLine(); // 버퍼지우기
+		System.out.print("내용  >> ");
+		String boardCont = scan.nextLine();
+
+		BoardVO bv = new BoardVO();
+		bv.setBoardNum(boardNum);
+		bv.setBoardTit(boardTit);
+		bv.setBoardWriter(boardWriter);
+		bv.setBoardCont(boardCont);
+
+		int cnt = boardService.modifyBoard(bv);
+		if (cnt > 0) {
+			System.out.println("게시글 수정 성공");
+		} else {
+			System.out.println("게시글 수정 실패");
 		}
+
 	}
 
 	/**
-	 * 게시글 번호를 이용하여 게시글이 존재하는지 체크하기 위한 메서드
-	 * @param boardNum 체크할 게시글 번호
-	 * @return 존재하면 true, 존재하지 않으면 false
+	 * 게시글을 추가하는 메서드 :새글작성
 	 */
-	private boolean checkBoard(int boardNum) {
-		
+	private void insertBoard() {
+
 		boolean exist = false;
+
+		String boardNum = "";
 		
-		try {
-			conn = JDBCUtil.getConnection();
-			
-			/*
-			    select count(*) as cnt 
-				from jdbc_board 
-				where board_no = 1
-			 */
-			String sql = "select count(*) as cnt " 
-					+ " from jdbc_board "  
-					+ " where board_no = ? ";
-			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNum);
-			
-			rs = pstmt.executeQuery();
-			
-			int cnt = 0; 
-			
-			while(rs.next()) {
-				cnt = rs.getInt("cnt");
-			}
-			
-			if(cnt > 0) { //존재한다면
-				exist = true;
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally  {
-			JDBCUtil.close(conn, stmt, pstmt, rs);
+		System.out.println("제목 >> ");
+		String boardTit = scan.next();
+
+		System.out.println("작성자 >> ");
+		String boardWriter = scan.next();
+
+		//scan.nextLine(); // 버퍼지우기
+		System.out.println("내용  >> ");
+		String boardCont = scan.next();
+
+		BoardVO bv = new BoardVO();
+		bv.setBoardNum(boardNum);
+		bv.setBoardTit(boardTit);
+		bv.setBoardWriter(boardWriter);
+		bv.setBoardCont(boardCont);
+
+		int cnt = boardService.registBoard(bv);
+		if (cnt > 0) { // insert 됐을 경우
+			System.out.println("게시글 등록 성공");
+		} else {
+			System.out.println("게시글 등록 실패");
 		}
-		return exist;
+
 	}
 
-	/**
-	 * 게시글을 삭제하기 위한 메서드
-	 */
-	private void deleteBoard() {
-		
-		System.out.println();
-		System.out.println("삭제할 게시글을 입력하세요");
-		System.out.println("게시글 ID >> ");
-		
-		int boardNum = scan.nextInt();
-		
-		try {
-			
-			conn = JDBCUtil.getConnection();
-			
-			String sql = "delete from jdbc_board where board_no = ? ";
-			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNum);
-			
-			int cnt = pstmt.executeUpdate();
-			if (cnt > 0) {
-				System.out.println("게시글 삭제 성공 ");
-			} else {
-				System.out.println("게시글 삭제 실패");
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCUtil.close(conn, stmt, pstmt, rs);
-		}
-	}
-	
-	
-	/**
-	 * 게시글 검색
-	 * 
-	 */
-	private void searchBoard() {
-
-		
-		// 검색할 게시글번호, 게시글제목, 게시글내용, 작성자 등을 입력하면
-		// 입력한 정보만 사용하여 검색하는 기능을 구현하시오.
-		scan.nextLine();
-		System.out.println();
-		System.out.println("검색할 게시글 정보를 입력하세요");
-		
-		
-		System.out.println("게시글 번호");
-		String boardNum = scan.next().trim();
-
-		
-		System.out.println("게시글제목 >>");
-		String boardTit = scan.next().trim();
-		
-		System.out.println("게시글내용  >> ");
-		String boardCont = scan.next().trim();
-		
-		System.out.println("작성자  >> ");
-		String boardWriter = scan.next().trim();
-		System.out.println();
-
-		
-		
-		//jdbc 코딩 시작
-		try {
-			
-	    	conn = JDBCUtil.getConnection();
-	    	
-	    	String sql = "select * from jdbc_board where 1=1 ";
-	    	
-	    	pstmt = conn.prepareStatement(sql);
-	    	
-	    	rs = pstmt.executeQuery();
-
-	    	//rs가 없으면 건너뜀
-	    	while(rs.next()) { // 하나씩 꺼내서
-				String boardNum2 = rs.getString("board_no");
-				String boardTit2 = rs.getString("board_title");
-				String boardWriter2 = rs.getString("board_writer");
-				String boardContent2 = rs.getString("board_content");
-			
-				if(boardNum2 != null && boardNum2.equals("")) {
-					sql += " and board_no = ? ";
-				}
-				
-				if(boardTit2 != null && boardTit2.equals("")) {
-					sql += " and board_title = ? ";
-				}
-				
-				if(boardWriter2 != null && !boardWriter2.equals("")) {
-					sql += " and board_writer = ? ";
-				}
-
-				if(boardContent2 != null && !boardContent2.equals("")) {
-					sql += " and board_content like '%' || ? || '%' ";
-				}
-	    	}
-	    	
-	    	
-	    	
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			JDBCUtil.close(conn, stmt, pstmt, rs);
-		}
-		
-		
-		
-	}
-
-
-
-
-
-	//실제 출력!!!!!
+	// 실제 출력!!!!!
 	public static void main(String[] args) {
-		BoardTest  boardObj = new BoardTest();
+		BoardTest boardObj = new BoardTest();
 		boardObj.start();
 	}
 

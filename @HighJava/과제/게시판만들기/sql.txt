@@ -26,6 +26,8 @@ create table jdbc_board(
 create sequence board_seq
     start with 1   -- 시작번호
     increment by 1; -- 증가값
+    
+drop sequence BOARD_SEQ;    
 
 --시퀀스 현재값 구하기
 select board_seq.currval from dual;
@@ -36,6 +38,8 @@ insert into jdbc_board
 
 select * from jdbc_board;
 --delete from jdbc_board;
+
+
 
 
 --update
@@ -54,8 +58,9 @@ where board_no = 1
 
 
 
-select * from jdbc_board where 1=1
-;
+
+
+delete from jdbc_board where board_no = ?
 
 
 
