@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<!-- db.properties 불러오기  -->
+	<properties resource="db.properties" />
+
+	<!-- kr.or.ddit.Board.vo.BoardVO이거는 이제부터  BoardVO라고 부르겠다 -->
+	<typeAliases>
+		<typeAlias type="kr.or.ddit.Board.vo.BoardVO" alias="BoardVO"  />
+	</typeAliases>
+
+	<!-- 개발환경  environments default="dev"  -->
+	<environments default="dev">
+		<environment id="dev">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}"/>  <!-- db.properties에서 드라이버 정보가져오기   -->
+				<property name="url" value="${url}"/>  <!-- db.properties에서  url정보가져오기 -->
+				<property name="username" value="${username}"/> <!-- db.properties에서  user정보 가져오기  -->
+				<property name="password" value="${password}"/>  <!-- db.properties에서  ${password}정보 가져오기  -->
+				<!-- 활성화된 최대 커넥션 수  -->
+				<property name="poolMaximumActiveConnections" value="2"/>
+				<!-- 유휴상태에서의 최대 커넥션 수  -->
+				<property name="poolMaximumIdleConnections" value="2"/>
+			</dataSource>				
+		</environment>
+	</environments>
+	 
+	 
+	 <!-- 등록된 쿼리 파일 불러오기   -->
+	 <mappers>
+	 	<mapper resource="mappers/board.xml" />
+	 </mappers>
+	 
+	 
+	 
+</configuration>
