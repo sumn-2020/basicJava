@@ -50,13 +50,27 @@
 	<select id="selectAllMember"
 		resultType="kr.or.ddit.member.vo.MemberVO">
 
-		select mem_id as memId,
+		<!-- select mem_id as memId,
 		mem_name as memName,
 		mem_tel as
 		memTel,
 		mem_addr as memAddr
+		from mymember -->
+
+		select mem_id,
+		mem_name,
+		mem_tel,
+		mem_addr
 		from mymember
 
+		<!-- 
+		mybatis-config.xml 파일에 아래와 같이 추가하면  쿼리 뒤에 as 안써도 됨 
+		
+		<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>  
+		</settings> 
+		-->
+		
 	</select>
 
 
@@ -76,8 +90,6 @@
 
 	</select>
 
-
-
 	<select id="checkMember" parameterType="String" resultType="int">
 
 		select count(*) as cnt
@@ -85,12 +97,6 @@
 		where mem_id = #{memId}
 
 	</select>
-
-
-
-
-
-
 
 	<resultMap type="MemberVO" id="memMap">
 		<id column="mem_id" property="memId" /> <!-- mem_id는 memId이름으로 대체한다고 mybatis한테 알려주기 / id  = key값이라는 뜻임 id대신 result 써도 무관 -->
@@ -101,6 +107,7 @@
 
 	<select id="searchMember" parameterType="MemberVO"
 		resultMap="memMap"> <!-- memMap을 이용해서 mappering 해주세요  -->
+		<!-- resultMap : 복잡한 결과 매핑을 간편하게 만들어주기 위해 만들어진 태그 -->
 
 		select * from mymember where 1=1
 

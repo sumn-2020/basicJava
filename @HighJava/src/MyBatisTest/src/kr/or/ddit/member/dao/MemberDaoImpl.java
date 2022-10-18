@@ -22,9 +22,6 @@ public class MemberDaoImpl extends MyBatisDao implements IMemberDao {
 		return memDao;
 	}
 	
-	
-	
-	
 	@Override
 	public int insertMember(MemberVO mv) {
 		return insert("member.insertMember", mv); // 실행할 쿼리 :insert.insertMember
