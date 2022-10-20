@@ -10,7 +10,9 @@ public class TcpSocketServerTest {
 	public static void main(String[] args) throws IOException {
 
 		// TCP 소켓 통신을 하기 위해 ServerSocket 객체 생성
-		ServerSocket server = new ServerSocket(7777);
+		// 소켓 : 통신할 때 양 끝단(소켓을 통해서 데이터 주고받기) 
+		// TCP 소켓 : server소켓, client 소켓이 있음 
+		ServerSocket server = new ServerSocket(7777); // 7777 : 포트번호
 		System.out.println("서버가 접속을 기다립니다...");
 
 		// accept()메서드는 Client에서 연결 요청이 올 때까지 계속 기다린다.
