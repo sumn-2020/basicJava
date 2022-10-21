@@ -99,6 +99,9 @@ public class BoardMain {
 			case 5: // 검색
 				searchBoard();
 				break;
+			case 6: // 종료
+				System.out.println("종료되었습니다.");
+				break;
 			default:
 				System.out.println("번호를 잘못 입력했습니다. 다시 입력하세요");
 			}
@@ -106,11 +109,7 @@ public class BoardMain {
 		} while (choice != 6); // 6이 아니면 do while문 빠져나가고 기면 계속 반복
 	}
 	
-	
-	
-	
-	
-	
+
 
 	private void searchBoard() {
 
