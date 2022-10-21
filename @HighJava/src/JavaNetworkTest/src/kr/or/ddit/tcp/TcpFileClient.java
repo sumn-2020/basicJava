@@ -16,23 +16,23 @@ public class TcpFileClient {
 	private DataOutputStream dos;
 	private DataInputStream dis;
 
-	public TcpFileClient() {
+	public void clienStart() {
 
-		File file = new File("d:/D_Other/down/aaa.jpg");
+		File file = new File("d:/D_Other/br5.jpg");
 
 		try {
 
-			socket = new Socket("192.168.35.90", 7777);
+			socket = new Socket("192.168.35.90", 7777); //요청
 
 			// 소켓접속이 성공하면 받고 싶은 파일명을 보낸다.
 			dos = new DataOutputStream(socket.getOutputStream());
 
-			dos.writeUTF(file.getName());
+			dos.writeUTF(file.getName()); //파일 객체의 파일이름을 가져오기 
 
 			dis = new DataInputStream(socket.getInputStream());
 
-			String resultMsg = dis.readUTF();
-			if (resultMsg.equals("OK")) {
+			String resultMsg = dis.readUTF(); //메시지 읽어들이기
+			if (resultMsg.equals("OK")) { //파일이 있다면 
 				fos = new FileOutputStream(file);
 
 				BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
@@ -67,5 +67,11 @@ public class TcpFileClient {
 		}
 
 	}
+	
+	public static void main(String[] args) {
+		new TcpFileClient().clienStart();
+	}
+
+
 
 }

@@ -30,21 +30,21 @@ public class TcpFileServer {
 			String downDir = "d:/D_Other/";
 
 			File file = null;
-			while (true) {
+			while (true) { //무한루프 돌면서 클라이언트 기다리기 
 
 				System.out.println("파일 전송 대기 중...");
-				socket = server.accept();
+				socket = server.accept(); //두개의 소켓(서버소켓, 클라이언트 소켓)이 완성되면 accept풀림
 
 				System.out.println("요청 파일 존재여부 체크 중...");
 
 				dis = new DataInputStream(socket.getInputStream());
 				dos = new DataOutputStream(socket.getOutputStream());
 
-				file = new File(downDir + dis.readUTF());
+				file = new File(downDir + dis.readUTF()); //사용자가 writeUTF로 전송했을 데이터를 readUTF를 읽음
 
-				if (!file.exists()) {
+				if (!file.exists()) { //데이터가 존재하지 않으면 
 					System.out.println("요청파일(" + file.getName() + ") 존재하지 않음");
-					dos.writeUTF("요청파일(" + file.getName() + ") 존재하지 않습니다.");
+					dos.writeUTF("요청파일(" + file.getName() + ") 존재하지 않습니다."); //상대방한테도 보내주기 
 
 					dos.close();
 					socket.close();
@@ -55,15 +55,15 @@ public class TcpFileServer {
 					System.out.println("요청파일( " + file.getName() + ") 전송시작 ...");
 				}
 
-				fis = new FileInputStream(file);
+				fis = new FileInputStream(file); //FileInputStrea을 이용해서 파일 읽어들이기 
 
 				BufferedInputStream bis = new BufferedInputStream(fis);
-				BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
+				BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream()); //소켓을 통해서 상대방 소켓으로 보내기 
 
 				int data = 0;
 
 				while ((data = bis.read()) != -1) {
-					bos.write(data);
+					bos.write(data); 
 				}
 
 				bis.close();
@@ -80,5 +80,11 @@ public class TcpFileServer {
 			e.printStackTrace();
 		}
 
+	}
+	
+	
+	
+	public static void main(String[] args) {
+		new TcpFileServer().serverStart();
 	}
 }
