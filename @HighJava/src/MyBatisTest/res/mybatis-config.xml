@@ -18,7 +18,26 @@
 		<!-- jdbcTypeForNull 생겼을 때 Null -->
 		<setting name="jdbcTypeForNull" value="Null" />
 
-		<!-- DB 컬럼명을 낙타표기법으로 속성명과 자동 매핑 처리하기 -->
+		<!-- 
+		DB 컬럼명을 낙타표기법으로 속성명과 자동 매핑 처리하기 : 
+		이걸 추가하면 sql에서 "as 컬럼명" 필요 없어짐 -->
+		
+		<!-- select mem_id as memId,
+		mem_name as memName,
+		mem_tel as
+		memTel,
+		mem_addr as memAddr
+		from mymember -->
+
+		<!--select mem_id,
+		mem_name,
+		mem_tel,
+		mem_addr
+		from mymember -->
+		
+		
+		
+		
 		<setting name="mapUnderscoreToCamelCase" value="true" /> <!--mapUnderscoreToCamelCase 기법을 사용하겠다(true) -->
 	</settings>
 
