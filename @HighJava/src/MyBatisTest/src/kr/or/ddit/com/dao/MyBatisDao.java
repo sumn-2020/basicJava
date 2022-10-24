@@ -9,6 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.or.ddit.util.MyBatisUtil;
 
+
+//1행 selectOne
+//여러행 selectList
+
 public class MyBatisDao {
 
 	public <T> T selectOne(String statement, Object parameter) {
