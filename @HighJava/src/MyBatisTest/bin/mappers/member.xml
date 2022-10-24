@@ -18,7 +18,19 @@
 		4) resultMap 속성: 결과 레코드 컬럼명과 VO객체의 property명이 다를 경우에 적절한 매핑을 위해 사용한다. 
 	-->
 
-	<!-- 드루와 : parameterType  =>  MemberVO -->
+	<!-- 
+	드루와 : parameterType  =>  MemberVO , hashMap, Stirng
+	가즈아 : 1) resultType : MemberVO, int 
+			* int => select count(*)
+			* insert / update,delete는 resultType 생략됨
+	
+		   2) resultMap(잘 안씀) : 1대 N의 관계(조인) => collection
+		   						 select * from 1prod 1, prod p where 1.1prod_gu = p.prod1gu;
+						  		 1대 1의 관계(조인) => associations
+	-->
+	
+	
+	
 	<insert id="insertMember"
 		parameterType="kr.or.ddit.member.vo.MemberVO">
 
@@ -101,7 +113,7 @@
 
 	<select id="checkMember" parameterType="String" resultType="int">
 
-		select count(*) as cnt
+		select count(*) as cnt <!-- resultType="int" 결과값이 정수이기 때문에 cnt   -->
 		from mymember
 		where mem_id = #{memId}
 
