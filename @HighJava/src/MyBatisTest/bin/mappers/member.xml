@@ -18,7 +18,7 @@
 		4) resultMap 속성: 결과 레코드 컬럼명과 VO객체의 property명이 다를 경우에 적절한 매핑을 위해 사용한다. 
 	-->
 
-	<!-- 드루와 : parameterType  =>  MemberVO mv -->
+	<!-- 드루와 : parameterType  =>  MemberVO -->
 	<insert id="insertMember"
 		parameterType="kr.or.ddit.member.vo.MemberVO">
 
