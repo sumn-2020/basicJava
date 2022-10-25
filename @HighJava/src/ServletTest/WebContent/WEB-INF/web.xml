@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+
+	<display-name>ServletTest</display-name>
+
+	<servlet>
+		<servlet-name>T01ServletLifeCycle</servlet-name> <!-- servlet 이름 짓기 -->
+		<servlet-class>kr.or.ddit.basic.T01ServletLifeCycle</servlet-class> <!-- 톰캣한테 이 이름(T01ServletLifeCycle)의 servlet클래스는 무엇인지 알려주는거 -->
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>T01ServletLifeCycle</servlet-name> <!-- servlet 이름 짓기 -->
+		<url-pattern>/T01ServletLifeCycle</url-pattern> <!-- /T01ServletLifeCycle 되면 servlet(T01ServletLifeCycle)이 동작하도록 하고싶어라고 톰캣에게 
+			알려주는거 -->
+	</servlet-mapping>
+
+</web-app>
