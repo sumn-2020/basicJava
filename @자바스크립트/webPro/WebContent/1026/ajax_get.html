@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<input type="text" name="poli" value="폴리">
+	<input type="button" value="get" onclick="f_getAjax()">
+	<input type="button" value="post" onclick="f_postAjax()">
+
+	<div id="disp"></div>
+
+
+
+
+	<script>
+		var v_val = document.querySelector('input[name=poli]').value;
+		var v_disp = document.querySelector("#disp");
+		
+
+		function f_getAjax() {
+
+			console.log(v_val);
+
+			//ajax기본구문
+			var req = new XMLHttpRequest();
+
+			//req.open("get", "ajax_get.jsp?dataNameName=" + v_val, true); 
+			//ajax_get.jsp여기로 dataName 내용을 보내겠따 
+			//?뒤에 보내고싶은 데이터
+			req.open("get", "/Ajax?keyyy=" + v_val, true); //ajax_get.jsp여기로 dataName 내용을 보내겠따 
+
+			req.onreadystatechange = function() {
+				if (req.readyState == 4 && req.status == 200) {
+					//alert(req.responseText);
+					v_disp.innerHTML = req.responseText;
+				}
+			}
+			req.send();
+		}
+
+		function f_postAjax() {
+			var req = new XMLHttpRequest();
+			//req.open("post", "ajax_get.jsp", true); //post방식일때는 post로 설정 
+			req.open("post", "/Ajax", true);
+			req.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					console.log(req.responseText); //json object(문자열 데이터) 전달받음
+					console.log(JSON.parse(req.responseText));
+					var data = JSON.parse(req.responseText); //json이 JS객체의 형태로 변경됨 
+					v_disp.innerHTML = `<h4>${data.key}</h4>`
+					
+				}
+			}
+			
+			// post방식으로 데이터를 넘겨줄 때 꼭 requestHeader속성을 설정한다.
+			//content-type: http통신에서 전송되는 데이터의 타입을 나타내느 헤더정보
+			req.setRequestHeader("content-type" 
+					, "application/x-www-form-urlencoded;charset=utf-8");
+			req.send("keyyy="+v_val); // post는 data를 send 메소드에 담아서 전달
+		}
+	</script>
+
+</body>
+</html>
