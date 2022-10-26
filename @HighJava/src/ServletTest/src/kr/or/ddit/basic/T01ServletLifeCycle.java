@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 public class T01ServletLifeCycle extends HttpServlet {
 
 	/*
-	 * 서블릿이란? 컨테이너(서블릿 엔진)에 의해 관리되는 자바기반 웹컴포넌트로서, 동적인 웹 컨텐츠의 생성을 가능하게 해준다.
+	 * 서블릿이란? 
+	 * 컨테이너(서블릿 엔진)에 의해 관리되는 자바기반 웹컴포넌트로서, 동적인 웹 컨텐츠의 생성을 가능하게 해준다.
 	 */
 
 	public T01ServletLifeCycle() {
@@ -19,6 +20,7 @@ public class T01ServletLifeCycle extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
+		//초기화 코드 작성 
 		System.out.println("init()호출됨");
 	}
 
@@ -33,6 +35,9 @@ public class T01ServletLifeCycle extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 메서드 방식이 get인 경우 호출됨
 		System.out.println("doGet()호출됨");
+		
+		
+		throw new ServletException("서블릿에서 난리가 났어요!!!!!");
 	}
 
 	@Override

@@ -6,6 +6,8 @@
 
 	<display-name>ServletTest</display-name>
 
+
+	<!-- T01ServletLifeCycle -->
 	<servlet>
 		<servlet-name>T01ServletLifeCycle</servlet-name> <!-- servlet 이름 짓기 -->
 		<servlet-class>kr.or.ddit.basic.T01ServletLifeCycle</servlet-class> <!-- 톰캣한테 이 이름(T01ServletLifeCycle)의 servlet클래스는 무엇인지 알려주는거 -->
@@ -16,5 +18,56 @@
 		<url-pattern>/T01ServletLifeCycle</url-pattern> <!-- /T01ServletLifeCycle 되면 servlet(T01ServletLifeCycle)이 동작하도록 하고싶어라고 톰캣에게 
 			알려주는거 -->
 	</servlet-mapping>
+	<!-- //T01ServletLifeCycle -->
+	
+	
+	
+	<!-- T02ServletTest -->
+	<servlet>
+		<servlet-name>T02ServletTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T02ServletTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		 <servlet-name>T02ServletTest</servlet-name>
+		 <url-pattern>/T02ServletTest</url-pattern>
+	</servlet-mapping>
+	<!-- //T02ServletTest -->
+	
+	
+	<!--T03ServeletParameterTest  -->
+	<servlet>
+		<servlet-name>T03ServeletParameterTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T03ServeletParameterTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T03ServeletParameterTest</servlet-name>
+		<url-pattern>/T03ServeletParameterTest</url-pattern>
+	</servlet-mapping>
+	<!-- //T03ServeletParameterTest  -->
+	
+	
+	<!-- T04ErrorHandler -->
+	<servlet>
+		<servlet-name>T04ErrorHandler</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T04ErrorHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T04ErrorHandler</servlet-name>
+		<url-pattern>/T04ErrorHandler</url-pattern>
+	</servlet-mapping>
+	<!-- // T04ErrorHandler -->
+	
+	
+	<!-- 에러가 발생했을 때 어떤식으로 처리할지 결정   -->
+	<error-page>
+		<error-code>500</error-code> <!-- 500에러 뜬다면  -->
+		<location>/T04ErrorHandler</location> <!-- 가만히 있지말고 url-pattern(/T04ErrorHandler) 여기로 요청을 다시 날려 -->
+	</error-page>
+	
+	<error-page>
+		<exception-type>javax.servlet.ServletException</exception-type>  <!--  이런타입의 예외가  뜬다면  -->
+		<location>/T04ErrorHandler</location> <!-- 가만히 있지말고 url-pattern(/T04ErrorHandler) 여기로 요청을 다시 날려 -->
+	</error-page>
+	
 
 </web-app>
