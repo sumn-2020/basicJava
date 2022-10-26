@@ -49,7 +49,7 @@
 				if (this.readyState == 4 && this.status == 200) {
 					console.log(req.responseText); //json object(문자열 데이터) 전달받음
 					console.log(JSON.parse(req.responseText));
-					var data = JSON.parse(req.responseText); //json이 JS객체의 형태로 변경됨 
+					var data = JSON.parse(req.responseText); //json이 JS객체의 형태로 변경됨 그냥 텍스트로만 나오던 json정보를 이제 실제로 활용할 수 있게됨 
 					v_disp.innerHTML = `<h4>${data.key}</h4>`
 					
 				}
