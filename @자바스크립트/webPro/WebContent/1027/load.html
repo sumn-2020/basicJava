@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	div {border: 1px solid #000; height: 20vh;}
+</style>
+</head>
+<body>
+	
+	<input id="userId">
+	<input type="password" id="userPw">
+	<button>버튼</button>
+	
+	<div id="d1"></div>
+	<div id="d2"></div>
+
+
+<script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script>
+
+	//load(): 서버로부터 응답받은 데이터를 선택한 html요소 컨텐츠로 대체
+	//서버와 통신하여 데이터를 가져오는 메소드로 ajax()보다 간소화된 비동기 호출 메소드
+	//$(selector).load(url, data-서버로 전송할{key:value, key: value}, callback-작업완료 후 수행할 내용)
+	//$("#d1").load(url,data,cb);
+	$("button").click(function() {
+		
+		let usrId = document.querySelector("#userId").value;
+		let usrPw = $("#userPw").val();
+
+		//"aaaaa":usrId - load.html
+		//String usrPw = request.getParameter("aaaaa"); - loadTest.jsp
+		// 키 값이 둘이 같아야 됨 "aaaaa"
+		$("#d1").load("loadTest.jsp", {"usrId":usrId, "usrPw":usrPw} ,f_cb);
+	});
+	
+	//response, status, xhr
+	function f_cb(response,status,xhr) {
+		//첫번째 매개변수 - response를 통해 결과(응답데이터) 표시 - response가 가지고있는 rst 정보를 빼내올수 있음 
+		$("#d2").html("<p>로그인" + JSON.parse(response).rst + "</p>"); 
+		
+		//status - 상태코드를 문자로 확인 , xhr객체의 속성으로 정보 확인 가능 
+		alert(status + xhr.status); 
+	}
+
+	$("#d3").load('www.naver.com', function(a, b, c) {
+		alert("상태" + c);
+	}); 
+
+</script>
+
+</body>
+</html>
