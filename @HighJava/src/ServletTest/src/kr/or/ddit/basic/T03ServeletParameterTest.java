@@ -53,7 +53,7 @@ public class T03ServeletParameterTest extends HttpServlet {
 			}
 		}
 		
-		Enumeration<String> params = req.getParameterNames();
+		Enumeration<String> params = req.getParameterNames(); //파라미터 이름만 꺼내준거 
 		while(params.hasMoreElements()) {
 			String param = params.nextElement();
 			out.print("<p>파라미터 이름: " + param + "</p>");

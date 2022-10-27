@@ -32,7 +32,7 @@ public class T04ErrorHandler extends HttpServlet{
 		
 		// 응답시작 
 		resp.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/html");
+		resp.setContentType("text/html"); //MIME타입
 		
 		PrintWriter out = resp.getWriter();
 		

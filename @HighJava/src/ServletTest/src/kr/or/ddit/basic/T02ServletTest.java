@@ -65,7 +65,7 @@ public class T02ServletTest extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		out.println("name => " + name);
 		out.println("서블릿 경우 => " + req.getServletPath());
-		out.println("컨텍스트 경우 => " + req.getContextPath()); //애플리케이션 이름 
+		out.println("컨텍스트 경우 => " + req.getContextPath()); //애플리케이션 이름  (/ServletTest)
 
 	
 	}
