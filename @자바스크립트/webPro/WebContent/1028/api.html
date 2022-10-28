@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<input type="text" id="search" value="">
+	<input type="button" value="내 서버를 통해 우회" onclick="f_myServer()">
+	
+	<!-- xml을 json으로 변경하는 라이브러리  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"></script>
+	<script>
+	
+	// 서버가 클라이언트의 역할(요청)을 하는 라이브러리를 설치 
+	// - Http Client
+	
+	
+	
+	function f_myServer() {
+		var req = new XMLHttpRequest();
+		req.open('get','/Api', true); //서블릿에 있는 context root 넣기 
+		req.onreadystatechange = function() {
+			if(req.readyState == 4 && req.status == 200) {
+				console.log(req.responseText);
+			}
+		}
+		req.send();
+	}
+	
+		
+	</script>
+
+</body>
+</html>
