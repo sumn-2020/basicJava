@@ -16,7 +16,7 @@
 		-->
 		<!--  null관련 오류 생겼을 때  -->
 		<!-- jdbcTypeForNull 생겼을 때 Null -->
-		<setting name="jdbcTypeForNull" value="Null" />
+		<setting name="jdbcTypeForNull" value="NULL" />
 
 		<!-- 
 		DB 컬럼명을 낙타표기법으로 속성명과 자동 매핑 처리하기 : 
