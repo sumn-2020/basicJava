@@ -8,6 +8,7 @@
 
 	<input type="text" id="search" value="">
 	<input type="button" value="내 서버를 통해 우회" onclick="f_myServer()">
+	<div id="disp"></div>
 	
 	<!-- xml을 json으로 변경하는 라이브러리  -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"></script>
@@ -17,13 +18,38 @@
 	// - Http Client
 	
 	
-	
+	var v_disp = document.querySelector('#disp');
 	function f_myServer() {
+		
+		var keyword = document.querySelector('#search').value;
+		
+		
 		var req = new XMLHttpRequest();
-		req.open('get','/Api', true); //서블릿에 있는 context root 넣기 
+		req.open('get','/Api?keyword=' + keyword, true); //서블릿에 있는 context root 넣기 
 		req.onreadystatechange = function() {
 			if(req.readyState == 4 && req.status == 200) {
-				console.log(req.responseText);
+				//console.log("rss형식 뉴스데이터 들어옴>> " + req.responseText);
+				
+				
+				//응답데이터가 xml형식이므로 json으로 변환해주는 라이브러리 사용(cdnjs.com => x2js)
+				var x2j = new X2JS();
+				var jsonObj = x2j.xml_str2json(req.responseText);
+				console.log(jsonObj);
+				var items = jsonObj.rss.channel.item;
+				
+				//테이블 형태로 출력 
+				var v_tbl = "<table border=1>"
+				v_tbl += "<tr><td>제목</td><td>발행일</td></tr>";
+				for (var i = 0; i < items.length; i++) {
+					v_tbl += "<tr>";
+					v_tbl += `<td><a href='${items[i].link}'>${items[i].title}</a></td>`;
+					v_tbl += `<td>${new Date(items[i].pubDate).toLocaleString()}</td>`;
+					v_tbl += "</tr>";
+				}
+				v_tbl += "</table>";
+				v_disp.innerHTML = v_tbl;
+	
+				
 			}
 		}
 		req.send();

@@ -2,6 +2,7 @@ package webProServlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,14 +19,25 @@ public class Api extends HttpServlet {
 
 	public Api() {
 		super();
+		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		response.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
+		
+		
+		// url규칙(ASCII로 표현)에 맞게 한글을 인코딩해줘야 함
+		// URLEncoder URLDecoder
+		String keywd =  URLEncoder.encode(request.getParameter("keyword"), "utf-8");
+		System.out.println("============" + keywd + "============");
+
 //		Request.get("요청주소를 우리껄로 바꿈").execute().returnContent();
-		String returnStr = Request.get("https://moneys.mt.co.kr/news/mwView.php?no=2022102710451371440")
-		.execute().returnContent()
+		String returnStr = Request.get("https://news.google.com/rss/search?q=" + keywd + "&hl=ko&gl=KR&ceid=KR:ko")
+		.execute()
+		.returnContent()
 		.asString(); //스트링 형태로 반환
 		
 		PrintWriter out = response.getWriter();
