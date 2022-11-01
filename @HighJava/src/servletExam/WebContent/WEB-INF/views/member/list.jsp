@@ -6,6 +6,16 @@
 <!-- % 안에는 자바소스를 넣을수 있음 -->
 <%
 	List<MemberVO> memList = (List<MemberVO>) request.getAttribute("memList");
+
+
+	//redirect방식이므로 getattribute에 저장된 정보를 가져오는게 아니라 session에 저장된걸 꺼내와야됨 
+	String msg = session.getAttribute("msg") == null ?
+			""	: (String) session.getAttribute("msg");
+/* 	String msg = request.getAttribute("msg") == null ?
+			""	: (String) request.getAttribute("msg"); */
+	session.removeAttribute("msg");	 //alert창 딱 한번만 실행 	
+			
+
 %>
 
 <!DOCTYPE html>
@@ -35,8 +45,6 @@
 			<td><a href="detail.do?memId=<%=memList.get(i).getMemId()%>"><%=memList.get(i).getMemName()%></a></td>
 			<td><%=memList.get(i).getMemTel()%></td>
 			<td><%=memList.get(i).getMemAddr()%></td>
-			<td></td>
-			<td></td>
 		</tr>
 		<%
 			}
@@ -55,6 +63,17 @@
 
 	</table>
 	
+	
+	
+	<%
+		if(msg.equals("성공")) { //msg가 성공일 경우에만 스크립트 실행	
+	%>
+	<script>
+		alert('정상적으로 처리되었습니다.');
+	</script>
+	<%
+		}
+	%>
 
 </body>
 </html>
