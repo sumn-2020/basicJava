@@ -82,4 +82,7 @@ public class UplodaController2 extends HttpServlet {
 		}
 		return null; //filename이 존재하지 않을 경우..(폼필드)
 	}
+
+
+
 }

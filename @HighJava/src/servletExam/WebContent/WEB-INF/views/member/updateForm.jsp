@@ -13,7 +13,7 @@
 <title>회원정보 변경</title>
 </head>
 <body>
-	<form action="update.do" method="post">
+	<form action="update.do" method="post" enctype="multipart/form-data"> 
 		<input type="hidden" name="memId" value="<%= mv.getMemId()%>">
 		<table>
 			<tr>

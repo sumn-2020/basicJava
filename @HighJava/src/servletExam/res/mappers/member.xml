@@ -36,9 +36,9 @@
 
 		insert into mymember
 		(MEM_ID, MEM_NAME, MEM_TEL,
-		MEM_ADDR, REG_DT)
+		MEM_ADDR, REG_DT, ATCH_FILE_ID)
 		values(#{memId}, #{memName},
-		#{memTel}, #{memAddr},
+		#{memTel}, #{memAddr}, sysdate, #{atchFileId}
 		sysdate)
 
 	</insert>
@@ -52,7 +52,8 @@
 		set MEM_NAME = #{memName},
 		MEM_TEL =
 		#{memTel},
-		MEM_ADDR = #{memAddr}
+		MEM_ADDR = #{memAddr},
+		atch_file_id = #{atchFileId}
 		where MEM_ID =#{memId}
 
 	</update>
@@ -81,7 +82,8 @@
 		select mem_id,
 		mem_name,
 		mem_tel,
-		mem_addr
+		mem_addr,
+		atch_file_id
 		from mymember
 
 		<!-- 
@@ -105,7 +107,8 @@
 		mem_name as memName,
 		mem_tel as
 		memTel,
-		mem_addr as memAddr
+		mem_addr as memAddr,
+		atch_file_id as atchFileId
 		from mymember
 		where mem_id = #{memId}
 
@@ -124,6 +127,7 @@
 		<result column="mem_name" property="memName" />
 		<result column="mem_tel" property="memTel" />
 		<result column="mem_addr" property="memAddr" />
+		<result column="atch_File_id" property="atchFileId" />
 	</resultMap>
 
 	<select id="searchMember" parameterType="MemberVO"
