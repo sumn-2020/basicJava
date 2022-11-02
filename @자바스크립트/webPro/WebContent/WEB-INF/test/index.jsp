@@ -52,7 +52,7 @@ footer {
 </head>
 <body>
 
-	<%@ include file="../../site/header.jsp"%>
+	<%@ include file="./header.jsp"%>
 	<%@ include file="../../site/aside1.jsp"%>
 	<div class="col-sm-8 text-left">
 		<h1>Welcome</h1>
