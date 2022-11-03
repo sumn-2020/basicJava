@@ -52,39 +52,36 @@ footer {
 </head>
 <body>
 
-
-
-
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ include file="../../site/header.jsp"%>
 	<%@ include file="../../site/aside1.jsp"%>
 
+	<%
+		//System.out.println(session.getAttribute("joinCode"));
+		String joinCd = (String) session.getAttribute("joinCode");
+		if(joinCd == "yes") {
+			//회원가입페이지 보이기..
+	%>
+		<%@ include file="./join.jsp"%>
+		<% session.removeAttribute("joinCode"); %>
 
-
-	<c:set var="joinCd" value="${sessionScope.joinCode}"></c:set>
-	////<c:out value="${joinCd}"></c:out>////
+	<%	}else {
+			//그냥 메인페이지가 보이게..
+	%>
 	
-	<c:if test="${joinCd eq 'yes'}"> <%-- joinCd에 yes라는 코드가 있다면 --%>
-		 <%@ include file="./join.jsp"%> 
-		 <% session.removeAttribute("joinCode"); %>
-	</c:if>
-	
-	<c:if test="${joinCd ne 'yes'}"> <%-- joinCd에 yes라는 코드가 없다면 --%>
 		<div class="col-sm-8 text-left">
-			<h1>Welcome</h1>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-				eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-			</p>
-			<hr>
-			<h3>Test</h3>
-			<p>Lorem ipsum...</p>
-		</div> 
-	</c:if>
+		<h1>Welcome</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+			eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+		</p>
+		<hr>
+		<h3>Test</h3>
+		<p>Lorem ipsum...</p>
+	</div>
 
-
-		
-
-		
+	<%	
+		}
+	
+	%>
 
 
 	<%@ include file="../../site/aside2.jsp"%>

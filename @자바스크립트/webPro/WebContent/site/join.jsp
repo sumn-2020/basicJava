@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,7 +126,7 @@
 		
 		$.ajax({
 			type:'post',
-			url: 'idCheck.jsp',
+			url: '<%= request.getContextPath()%>/site/idCheck.jsp',
 			data: {userId : v_id.trim()} ,
 			dataType: 'json',
 			success: function(rst) {
