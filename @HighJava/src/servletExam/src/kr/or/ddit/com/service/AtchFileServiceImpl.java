@@ -34,7 +34,7 @@ public class AtchFileServiceImpl implements IAtchFileService {
 	public AtchFileVO saveAtchFileList(HttpServletRequest req) {
 
 		// 웹애플리케이션 루트 디렉토리 기준으로 업로드 경로 설정하기
-		String uploadPath = "d:/D_other/" + UPLOAD_DIR;
+		String uploadPath = "d:/D_Other/" + UPLOAD_DIR;
 
 		File uploadDir = new File(uploadPath);
 		if (!uploadDir.exists()) {
@@ -87,7 +87,7 @@ public class AtchFileServiceImpl implements IAtchFileService {
 					atchFileVO.setStreFileNm(saveFileName);
 					atchFileVO.setFileSize(fileSize);
 					atchFileVO.setOrignlFileNm(orignFileName);
-					atchFileVO.setFileStreCours(uploadPath);
+					atchFileVO.setFileStreCours(saveFilePath);
 					atchFileVO.setFileExtsn(fileExtension);
 
 					// 파일 세부정보 저장
@@ -132,14 +132,12 @@ public class AtchFileServiceImpl implements IAtchFileService {
 
 	@Override
 	public List<AtchFileVO> getAtchFilList(AtchFileVO atchFileVO) {
-		// TODO Auto-generated method stub
-		return null;
+		return fileDao.getAtchFileList(atchFileVO);
 	}
 
 	@Override
 	public AtchFileVO getAtchFileDetail(AtchFileVO atchFileVO) {
-		// TODO Auto-generated method stub
-		return null;
+		return fileDao.getAtchFileDetail(atchFileVO);
 	}
 
 }

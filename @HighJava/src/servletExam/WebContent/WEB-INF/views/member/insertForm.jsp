@@ -7,7 +7,7 @@
 <title>신규회원 등록</title>
 </head>
 <body>
-	<form action="insert.do" method="post">
+	<form action="insert.do" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>I D:</td>
